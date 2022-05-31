@@ -1,0 +1,28 @@
+body {
+    font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
+    /* background: linear-gradient( 109.6deg,  rgba(218,185,252,1) 11.2%, rgba(125,89,252,1) 91.1% ); */
+    background: linear-gradient(to right, #ad5389, #3c1053);
+}
+
+.landing { 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    border-radius: 5px !important;
+    background-color: #fff8f8;
+    padding: 15px;
+}
+
+.title {
+    font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
+    margin: 0;
+}
+
+.description {
+    font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
+    margin: 0;
+}
+
+.generate-btn {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19) !important;
+    border-radius: 5px !important;
+    margin-top: 20px;
+}
