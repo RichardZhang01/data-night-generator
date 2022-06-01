@@ -45,65 +45,83 @@
 
             <form>
 
-                <h2 class="text-center">Date Night Form</h2>
+                <h2 class="text-center" id="form-main-header">Date Night Form</h2>
 
                 <div class="row">
 
-                    <h3 class="text-center">Movies</h3>
+                    <h3 class="text-center form-section-header">Movies</h3>
 
                     <div class="small-12 columns">
                         <label>Genre
-                            <select>
-                            <option value="Drama">Drama</option>
-                            <option value="Comedy">Comedy</option>
-                            <option value="Romance">Romance</option>
-                            <option value="Horror">Horror</option>
-                            <option value="Action">Action</option>
-                            <option value="Adventure">Adventure</option>
+                            <select id="genre">
+                                <option value=" ">All Genres</option>
+                                <option value="Action">Action</option>
+                                <option value="Adventure">Adventure</option>
+                                <option value="Animation">Animation</option>
+                                <option value="Comedy">Comedy</option>
+                                <option value="Crime">Crime</option>
+                                <option value="Documentary">Documentary</option>
+                                <option value="Drama">Drama</option>
+                                <option value="Family">Family</option>
+                                <option value="Fantasy">Fantasy</option>
+                                <option value="History">History</option>
+                                <option value="Horror">Horror</option>
+                                <option value="Music">Music</option>
+                                <option value="Mystery">Mystery</option>
+                                <option value="Science Fiction">Science Fiction</option>
+                                <option value="TV Movie">TV Movie</option>
+                                <option value="Thriller">Thriller</option>
+                                <option value="War">War</option>
+                                <option value="Western">Western</option>
                             </select>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>Sort
-                            <select>
-                            <option value="Trending">Trending</option>
-                            <option value="Newest">Newest</option>
-                            <option value="Top IMDB">Top IMDB</option>
-                            <option value="Popular">Popular</option>
+                            <select id="sort">
+                                <option value=" ">No Sort</option>
+                                <option value="popularity.desc">Popularity Descending</option>
+                                <option value="popularity.asc">Popularity Ascending</option>
+                                <option value="release_date.desc">Release Date Descending</option>
+                                <option value="release_date.asc">Release Date Ascending</option>
+                                <option value="revenue.desc">Revenue Decending</option>
+                                <option value="revenue.asc">Revenue Ascending</option>
+                                <option value="vote_averase.desc">Average Vote Descending</option>
+                                <option value="vote_averase.asc">Average Vote Ascending</option>
                             </select>
                         </label>
                     </div>
 
-                  <h3 class="text-center">Food</h3>
+                  <h3 class="text-center form-section-header">Food</h3>
 
-                  <div class="small-12 columns">
-                    <label>Cuisine
-                        <select>
-                          <option value="Chinese">Chinese</option>
-                          <option value="Indian">Indian</option>
-                          <option value="Italian">Italian</option>
-                          <option value="Mexican">Mexican</option>
-                          <option value="Japanese">Japanese</option>
-                          <option value="Korean">Korean</option>
-                          <option value="American">American</option>
-                        </select>
-                    </label>
-                  </div>
+                    <div class="small-12 columns">
+                        <label>Cuisine
+                            <select id="cuisine">
+                                <option value="Chinese">Chinese</option>
+                                <option value="Indian">Indian</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Mexican">Mexican</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Korean">Korean</option>
+                                <option value="American">American</option>
+                            </select>
+                        </label>
+                    </div>
 
-                  <div class="small-12 columns">
-                    <label>
-                        Expense ($)
-                        <input type="number" value="10">
-                    </label>
-                  </div>
+                    <div class="small-12 columns">
+                        <label>
+                            Expense ($)
+                            <input type="number" value="10" min="0" id="expense">
+                        </label>
+                    </div>
 
-                  <div class="small-12 columns">
-                    <label>
-                        Distance (KM)
-                        <input type="number" value="5">
-                    </label>
-                  </div>
+                    <div class="small-12 columns">
+                        <label>
+                            Distance (KM)
+                            <input type="number" value="5" min="1" id="distance">
+                        </label>
+                    </div>
 
                 </div>
 
