@@ -26,3 +26,7 @@ body {
     border-radius: 5px !important;
     margin-top: 20px;
 }
+
+form {
+    font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
+}
