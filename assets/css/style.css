@@ -30,3 +30,24 @@ body {
 form {
     font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
 }
+
+/* #input-modal {
+    top: 15% !important;
+} */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
+}
+
+#form-main-header {
+    border-bottom: 2px solid lightgray;
+    padding-bottom: 5px;
+}
+
+.form-section-header {
+    margin: 20px 0 10px 0 !important;
+}
+
+input, select {
+    border-radius: 5px !important;
+}
