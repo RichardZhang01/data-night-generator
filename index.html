@@ -6,7 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Date Night Generator</title>
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/css/foundation.min.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="./assets/css/foundation.css">
+        <link rel="stylesheet" href="./assets/css/app.css">
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,20 +30,102 @@
                 </div> 
 
                 <div class="cell">
-                    <h2 class="description h4">A short description of the app</h2>
+                    <h2 class="description h4">Click the start button below to enter information about your date-night!</h2>
                 </div> 
 
                 <div class="cell">  
-                    <a type="button" class="generate-btn button radius bordered shadow primary" href="./movies.html">Generate</a>
+                    <button class="generate-btn button" data-open="input-modal">Start</button>
                 </div> 
 
             </div> 
 
         </div>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <div class="reveal" id="input-modal" aria-labelledby="user-input modal" data-reveal data-animation-in="fade-in fast" data-animation-out="fade-out fast">
 
-        <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.7.4/dist/js/foundation.min.js" crossorigin="anonymous"></script>
+            <form>
+
+                <h2 class="text-center">Date Night Form</h2>
+
+                <div class="row">
+
+                    <h3 class="text-center">Movies</h3>
+
+                    <div class="small-12 columns">
+                        <label>Genre
+                            <select>
+                            <option value="Drama">Drama</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Horror">Horror</option>
+                            <option value="Action">Action</option>
+                            <option value="Adventure">Adventure</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="small-12 columns">
+                        <label>Sort
+                            <select>
+                            <option value="Trending">Trending</option>
+                            <option value="Newest">Newest</option>
+                            <option value="Top IMDB">Top IMDB</option>
+                            <option value="Popular">Popular</option>
+                            </select>
+                        </label>
+                    </div>
+
+                  <h3 class="text-center">Food</h3>
+
+                  <div class="small-12 columns">
+                    <label>Cuisine
+                        <select>
+                          <option value="Chinese">Chinese</option>
+                          <option value="Indian">Indian</option>
+                          <option value="Italian">Italian</option>
+                          <option value="Mexican">Mexican</option>
+                          <option value="Japanese">Japanese</option>
+                          <option value="Korean">Korean</option>
+                          <option value="American">American</option>
+                        </select>
+                    </label>
+                  </div>
+
+                  <div class="small-12 columns">
+                    <label>
+                        Expense ($)
+                        <input type="number" value="10">
+                    </label>
+                  </div>
+
+                  <div class="small-12 columns">
+                    <label>
+                        Distance (KM)
+                        <input type="number" value="5">
+                    </label>
+                  </div>
+
+                </div>
+
+                <div class="button-group align-center">
+                    <a class="secondary button" data-close id="closeBtn">Close</a>
+                    <a class="button" type="submit" id="submitBtn">Submit</a>
+                </div>
+
+            </form>
+
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        
+
+        <script src="./assets/js/vendor/jquery.js"></script>
+        <script src="./assets/js/vendor/what-input.js"></script>
+        <script src="./assets/js/vendor/foundation.js"></script>
+        <script src="./assets/js/app.js"></script>
 
         <script type="text/javascript" src="./assets/js/script.js"></script>
     </body>
