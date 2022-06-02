@@ -97,7 +97,6 @@ input, select {
     
     .overview {
         max-height: 30px;
-        overflow: scroll;
     }
 
 }
@@ -106,7 +105,6 @@ input, select {
     
     .overview {
         max-height: 80px;
-        overflow: scroll;
     }
 
 }
@@ -115,7 +113,6 @@ input, select {
     
     .overview {
         max-height: 40px;
-        overflow: scroll;
     }
 
 }
@@ -124,7 +121,6 @@ input, select {
     
     .overview {
         max-height: 200px;
-        overflow: scroll;
     }
 
 }
