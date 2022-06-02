@@ -25,6 +25,8 @@ function getParams(){
     console.log(genre);
     console.log(sort);
 
+    // document.location.replace("./foods.html?cuisine=${cuisine}&distance=${distance}");
+
     searchAPI(genre, sort);
 }
 
@@ -82,6 +84,7 @@ const printResults = (data) => {
         const releaseDate = movieList[x].release_date
         const rating = movieList[x].vote_average;
         const posterPath = movieList[x].poster_path;
+        const movieID = movieList[x].id;
 
         const cardContainerEl = $('<div class="card">');
         const generateGridEl = $('<div class="grid-x">');
@@ -90,10 +93,11 @@ const printResults = (data) => {
         const textCellEl = $('<div class="cell large-10 medium-9 small-8">');
         const titleContainerEl = $('<div class="card-divider">');
         const movieTitleEl = $('<h4 class="movie-title">');
-        const infoContainerEl = $('<div class="card-section">');
+        const infoContainerEl = $('<div class="card-section info-container">');
         const ratingEl = $('<p>');
         const ratingValueEl = $('<span>');
         const overviewEl = $('<p>');
+        const saveBtnEl = $('<button class="button hollow success selectBtn">')
 
         posterImageEl.attr('src', `https://image.tmdb.org/t/p/original${posterPath}`);
         posterImageEl.attr('alt', `Movie Poster for ${title}`);
@@ -101,8 +105,11 @@ const printResults = (data) => {
         ratingEl.text('Rating: ');
         ratingValueEl.text(rating);
         overviewEl.text(`Overview: ${overview}`);
+        saveBtnEl.attr('value', movieID);
+        saveBtnEl.text('Select');
 
         ratingEl.append(ratingValueEl);
+        infoContainerEl.append(saveBtnEl);
         infoContainerEl.append(ratingEl);
         infoContainerEl.append(overviewEl);
         titleContainerEl.append(movieTitleEl);
@@ -113,9 +120,64 @@ const printResults = (data) => {
         generateGridEl.append(textCellEl);
         cardContainerEl.append(generateGridEl);
         movieBlocksEl.append(cardContainerEl);
+        
+
+        let genreURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + key + "&language=en-US";
+
+        fetch(genreURL)
+          .then(function(response){
+            if(response.ok){
+              console.log(response);
+              response.json().then(function(data){
+                console.log("---genrelist---");
+                console.log(data.genres);
+                console.log(movieList);
+                console.log(movieList.length);
+
+                let genreList = data.genres;
+                
+                
+                  let genre_ids = movieList[x].genre_ids;
+                  console.log(`---- iteration ${x} -----`);
+                  console.log(genre_ids);
+
+                  genresEl = $("<p>");
+                  genresEl.text("Genres: ");
+                  infoContainerEl.append(genresEl);
+
+                  for (let y in genre_ids) {
+                    for (let z in genreList){
+
+                      
+                      console.log("---- COMPARISON ----")
+                      console.log(genre_ids[y]);
+                      console.log(genreList[z].id);
+
+                      if(genre_ids[y]===genreList[z].id){
+                        console.log("----SUCCESS----");
+                        console.log(genreList[z].name);
+
+                        genreSpanEl = $("<span>");
+                        genreSpanEl.text(`[${genreList[z].name}] `);
+                        genresEl.append(genreSpanEl);
+
+                        // 
+                      }
+
+                    }
+                  }
+
+              })
+            }
+          })
+
+          
 
     }
 
+    
+
+    
 }
 
 getParams();

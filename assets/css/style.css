@@ -12,6 +12,12 @@ body {
     width: 50%;
 }
 
+/* .info-container {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+} */
+
 .title {
     font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
     margin: 0;
