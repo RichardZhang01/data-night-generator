@@ -1,15 +1,26 @@
 const key = "91d53f14a017df935d07d6021001286c";
 
+let cuisine;
+let expense;
+let distance;
+
 function getParams(){
 
     const queryString = document.location.search.split(/[=&]+/);
 
     const genre = queryString[1];
     const sort = queryString[3];
+    cuisine = queryString[5];
+    expense = queryString[7];
+    distance = queryString[9];
     
+    console.log(document.location.search)
     console.log(queryString);
     console.log(genre);
     console.log(sort);
+    console.log(cuisine);
+    console.log(expense);
+    console.log(distance);
 
     searchAPI(genre, sort);
 }
@@ -116,20 +127,37 @@ const printResults = (data) => {
         fetch(genreURL)
           .then(function(response){
             if(response.ok){
-              console.log(response);
+              // console.log(response);
               response.json().then(function(data){
-                
+                // console.log("---genrelist---");
+                // console.log(data.genres);
+                // console.log(movieList);
+                // console.log(movieList.length);
+
                 let genreList = data.genres;
                 
                 
                   let genre_ids = movieList[x].genre_ids;
-                  
+                  // console.log(`---- iteration ${x} -----`);
+                  // console.log(genre_ids);
+
+                  genresEl = $("<p>");
+                  genresEl.text("Genres: ");
+                  infoContainerEl.append(genresEl);
+
                   for (let y in genre_ids) {
                     for (let z in genreList){
-                
+
+                      
+                      // console.log("---- COMPARISON ----")
+                      // console.log(genre_ids[y]);
+                      // console.log(genreList[z].id);
+
                       if(genre_ids[y]===genreList[z].id){
-                        
-                        const genreSpanEl = $("<span>");
+                        // console.log("----SUCCESS----");
+                        // console.log(genreList[z].name);
+
+                        genreSpanEl = $("<span>");
                         genreSpanEl.text(`[${genreList[z].name}] `);
                         genresEl.append(genreSpanEl);
 
@@ -147,9 +175,19 @@ const printResults = (data) => {
 
     }
 
-    
-
-    
 }
 
 getParams();
+
+let movieBlocks = $(".movie-blocks");
+
+console.log(movieBlocks);
+
+// When the select button is pressed, it links to the food.html and the selected movie ID is added to local storage. 
+
+movieBlocks.on("click",".selectBtn",function(){
+  selectedMovieId = $(this).attr("value");
+  console.log(selectedMovieId);
+  localStorage.setItem("selectedMovieId",JSON.stringify(selectedMovieId));  
+  window.location.href = "./food.html?&cuisine=" + cuisine + "&expense=" + expense + "&distance=" + distance;
+});
