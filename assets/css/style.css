@@ -9,6 +9,7 @@ body {
     border-radius: 5px !important;
     background-color: #fff8f8;
     padding: 15px;
+    width: 50%;
 }
 
 .title {
@@ -50,4 +51,32 @@ h1, h2, h3, h4, h5, h6 {
 
 input, select {
     border-radius: 5px !important;
+}
+
+.movie-title {
+    font-size: 1.8rem;
+}
+
+.card-section {
+    font-size: 1.3rem;
+}
+
+.movies-header {
+    color: white;
+}
+
+.card {
+    border-radius: 10px !important;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+
+}
+
+@media screen and (max-width: 640px) {
+    .movie-title {
+        font-size: 1.2rem;
+    }
+    
+    .card-section {
+        font-size: 1rem;
+    }
 }

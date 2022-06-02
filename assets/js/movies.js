@@ -1,65 +1,121 @@
-let key = "91d53f14a017df935d07d6021001286c";
-let sort = "popularity.desc";
-let genre = "Family";
+const key = "91d53f14a017df935d07d6021001286c";
+// let sort = "popularity.desc";
+// let genre = "Family";
 
-let mov1 = $("#mov1");
-let mov2 = $("#mov2");
-let mov3 = $("#mov3");
-let mov4 = $("#mov4");
-let mov5 = $("#mov5");
+// let mov1 = $("#mov1");
+// let mov2 = $("#mov2");
+// let mov3 = $("#mov3");
+// let mov4 = $("#mov4");
+// let mov5 = $("#mov5");
 
-let desc1 = $("#desc1");
-let desc2 = $("#desc2");
-let desc3 = $("#desc3");
-let desc4 = $("#desc4");
-let desc5 = $("#desc5");
+// let desc1 = $("#desc1");
+// let desc2 = $("#desc2");
+// let desc3 = $("#desc3");
+// let desc4 = $("#desc4");
+// let desc5 = $("#desc5");
 
-function getGenre(){
-    let apiURL = "https://api.themoviedb.org/3/discover/movie?api_key=" + key + "&language=en-US&sort_by=" + sort + "&page=1&with_genres=" + genre;
+function getParams(){
 
-    fetch(apiURL)
-    .then(function(response){
-        if(response.ok) {
-            console.log(response);
-            response.json().then(function(data){
-                console.log(data);
-                
-                let mov1Value = data.results[0].title;
-                console.log(mov1Value);
-                let mov2Value = data.results[1].title;
-                console.log(mov2Value);
-                let mov3Value = data.results[2].title;
-                console.log(mov3Value);
-                let mov4Value = data.results[3].title;
-                console.log(mov4Value);
-                let mov5Value = data.results[4].title;
-                console.log(mov5Value);
+    const queryString = document.location.search.split(/[=&]+/);
 
-                mov1.text(mov1Value);
-                mov2.text(mov2Value);
-                mov3.text(mov3Value);
-                mov4.text(mov4Value);
-                mov5.text(mov5Value);
+    const genre = queryString[1];
+    const sort = queryString[3];
+    
+    console.log(queryString);
+    console.log(genre);
+    console.log(sort);
 
-                let desc1Value = data.results[0].overview;
-                console.log(desc1Value);
-                let desc2Value = data.results[1].overview;
-                console.log(desc2Value);
-                let desc3Value = data.results[2].overview;
-                console.log(desc3Value);
-                let desc4Value = data.results[3].overview;
-                console.log(desc4Value);
-                let desc5Value = data.results[4].overview;
-                console.log(desc5Value);
-
-                desc1.text(desc1Value);
-                desc2.text(desc2Value);
-                desc3.text(desc3Value);
-                desc4.text(desc4Value);
-                desc5.text(desc5Value);
-            })
-        }
-    })
+    searchAPI(genre, sort);
 }
 
-getGenre();
+const searchAPI = (genre, sort) => {
+
+    // if (genre === "%20" && sort === "%20") {
+
+    // }
+
+    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}`
+
+    fetch(movieUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+
+      return response.json();
+    })
+    .then(function (data) {
+      
+    //   resultTextEl.textContent = locRes.search.query;
+
+      console.log(data);
+
+      if (!data.results.length) {
+        console.log('No results found!');
+        // resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
+      } else {
+        // resultContentEl.textContent = '';
+        // for (var i = 0; i < locRes.results.length; i++) {
+        //   printResults(locRes.results[i]);
+        // }
+        printResults(data);
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+}
+
+const printResults = (data) => {
+
+    const movieBlocksEl = $(".movie-blocks");
+    const movieList = data.results;
+
+    console.log(movieList);
+    movieBlocksEl.empty();
+
+    for (let x in movieList) {
+
+        const title = movieList[x].title;
+        const overview = movieList[x].overview;
+        const releaseDate = movieList[x].release_date
+        const rating = movieList[x].vote_average;
+        const posterPath = movieList[x].poster_path;
+
+        const cardContainerEl = $('<div class="card">');
+        const generateGridEl = $('<div class="grid-x">');
+        const posterCellEl = $('<div class="cell large-2 medium-3 small-4">');
+        const posterImageEl = $('<img>');
+        const textCellEl = $('<div class="cell large-10 medium-9 small-8">');
+        const titleContainerEl = $('<div class="card-divider">');
+        const movieTitleEl = $('<h4 class="movie-title">');
+        const infoContainerEl = $('<div class="card-section">');
+        const ratingEl = $('<p>');
+        const ratingValueEl = $('<span>');
+        const overviewEl = $('<p>');
+
+        posterImageEl.attr('src', `https://image.tmdb.org/t/p/original${posterPath}`);
+        posterImageEl.attr('alt', `Movie Poster for ${title}`);
+        movieTitleEl.text(`${title} (${releaseDate})`);
+        ratingEl.text('Rating: ');
+        ratingValueEl.text(rating);
+        overviewEl.text(`Overview: ${overview}`);
+
+        ratingEl.append(ratingValueEl);
+        infoContainerEl.append(ratingEl);
+        infoContainerEl.append(overviewEl);
+        titleContainerEl.append(movieTitleEl);
+        textCellEl.append(titleContainerEl);
+        textCellEl.append(infoContainerEl);
+        posterCellEl.append(posterImageEl);
+        generateGridEl.append(posterCellEl);
+        generateGridEl.append(textCellEl);
+        cardContainerEl.append(generateGridEl);
+        movieBlocksEl.append(cardContainerEl);
+
+    }
+
+}
+
+getParams();
