@@ -1,18 +1,4 @@
 const key = "91d53f14a017df935d07d6021001286c";
-// let sort = "popularity.desc";
-// let genre = "Family";
-
-// let mov1 = $("#mov1");
-// let mov2 = $("#mov2");
-// let mov3 = $("#mov3");
-// let mov4 = $("#mov4");
-// let mov5 = $("#mov5");
-
-// let desc1 = $("#desc1");
-// let desc2 = $("#desc2");
-// let desc3 = $("#desc3");
-// let desc4 = $("#desc4");
-// let desc5 = $("#desc5");
 
 function getParams(){
 
@@ -25,8 +11,6 @@ function getParams(){
     console.log(genre);
     console.log(sort);
 
-    // document.location.replace("./foods.html?cuisine=${cuisine}&distance=${distance}");
-
     searchAPI(genre, sort);
 }
 
@@ -36,7 +20,7 @@ const searchAPI = (genre, sort) => {
 
     // }
 
-    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}`
+    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}`;
 
     fetch(movieUrl)
     .then(function (response) {
@@ -88,16 +72,16 @@ const printResults = (data) => {
 
         const cardContainerEl = $('<div class="card">');
         const generateGridEl = $('<div class="grid-x">');
-        const posterCellEl = $('<div class="cell large-2 medium-3 small-0">');
+        const posterCellEl = $('<div class="cell large-2 medium-4 small-0">');
         const posterImageEl = $('<img>');
-        const textCellEl = $('<div class="cell large-10 medium-9 small-12">');
+        const textCellEl = $('<div class="cell large-10 medium-8 small-12">');
         const titleContainerEl = $('<div class="card-divider">');
         const movieTitleEl = $('<h4 class="movie-title">');
         const infoContainerEl = $('<div class="card-section info-container">');
         const ratingEl = $('<p>');
         const ratingValueEl = $('<span>');
-        const overviewEl = $('<p>');
-        const saveBtnEl = $('<button class="button hollow success selectBtn">')
+        const overviewEl = $('<p class="overview">');
+        const saveBtnEl = $('<button class="button hollow success selectBtn">');
 
         posterImageEl.attr('src', `https://image.tmdb.org/t/p/original${posterPath}`);
         posterImageEl.attr('alt', `Movie Poster for ${title}`);
@@ -134,30 +118,17 @@ const printResults = (data) => {
             if(response.ok){
               console.log(response);
               response.json().then(function(data){
-                console.log("---genrelist---");
-                console.log(data.genres);
-                console.log(movieList);
-                console.log(movieList.length);
-
+                
                 let genreList = data.genres;
                 
                 
                   let genre_ids = movieList[x].genre_ids;
-                  console.log(`---- iteration ${x} -----`);
-                  console.log(genre_ids);
-
+                  
                   for (let y in genre_ids) {
                     for (let z in genreList){
-
-                      
-                      console.log("---- COMPARISON ----")
-                      console.log(genre_ids[y]);
-                      console.log(genreList[z].id);
-
+                
                       if(genre_ids[y]===genreList[z].id){
-                        console.log("----SUCCESS----");
-                        console.log(genreList[z].name);
-
+                        
                         const genreSpanEl = $("<span>");
                         genreSpanEl.text(`[${genreList[z].name}] `);
                         genresEl.append(genreSpanEl);

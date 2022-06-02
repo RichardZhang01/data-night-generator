@@ -67,8 +67,15 @@ input, select {
     font-size: 1.2rem;
 } */
 
+/* .overview {
+    max-height: 80px;
+    overflow: scroll;
+} */
+
 .movies-header {
     color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+    z-index: 1;
 }
 
 .card {
@@ -77,12 +84,47 @@ input, select {
 
 }
 
-/* @media screen and (max-width: 640px) {
-    .movie-title {
-        font-size: 1.2rem;
-    }
+@media screen and (max-width: 1300px) {
     
-    .card-section {
-        font-size: 1rem;
+    .overview {
+        max-height: 50px;
+        overflow: scroll;
     }
-} */
+
+}
+
+@media screen and (max-width: 1200px) {
+    
+    .overview {
+        max-height: 30px;
+        overflow: scroll;
+    }
+
+}
+
+@media screen and (max-width: 1020px) {
+    
+    .overview {
+        max-height: 80px;
+        overflow: scroll;
+    }
+
+}
+
+@media screen and (max-width: 750px) {
+    
+    .overview {
+        max-height: 40px;
+        overflow: scroll;
+    }
+
+}
+
+@media screen and (max-width: 640px) {
+    
+    .overview {
+        max-height: 200px;
+        overflow: scroll;
+    }
+
+}
