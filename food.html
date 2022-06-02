@@ -20,7 +20,130 @@
     </head>
 
     <body>
-               
+
+        <div class="grid-x grid-padding-x grid-padding-y shrink header">
+
+            <div class="cell small-10"></div>
+
+            <div class="cell small-2">
+                <button class="restaurant-btn button hollow warning expanded" data-open="restaurant-modal">Add Restaurant</button>
+            </div>
+
+        </div>
+
+        <div class="reveal" id="restaurant-modal" aria-labelledby="restaurant modal" data-reveal data-animation-in="fade-in fast" data-animation-out="fade-out fast">
+
+            <form>
+
+                <h2 class="text-center" id="form-main-header">Add Restaurant</h2>
+
+                <div class="row">
+
+                    <div class="small-12 columns">
+                        <label>Restaurant Name
+                            <input type="text" placeholder="Restaurant Name" id="restaurantNameR">
+                        </label>
+                    </div>
+
+                    <div class="small-12 columns">
+                        <label>Cuisine
+                            <select id="cuisineR">
+                                <option value="Chinese">Chinese</option>
+                                <option value="Indian">Indian</option>
+                                <option value="Italian">Italian</option>
+                                <option value="Mexican">Mexican</option>
+                                <option value="Japanese">Japanese</option>
+                                <option value="Korean">Korean</option>
+                                <option value="American">American</option>
+                            </select>
+                        </label>
+                    </div>     
+                    
+                    <label>Price Range ($ --- $$$$)
+                        <div class="slider" aria-labelledby="Price Range" aria-describedby="PriceRangeText" data-slider data-initial-start="0" data-end="3">
+                            <span class="slider-handle"  data-slider-handle role="slider" tabindex="1"></span>
+                            <span class="slider-fill" data-slider-fill></span>
+                            <input type="hidden" id="priceRangeR">
+                        </div>
+                    </label>
+
+                    <h3 class="text-center form-section-header">Restaurant Address</h3>
+                    
+
+                    <div class="small-12 columns">
+                        <label>
+                            Street Number
+                            <input type="number" min="0" id="streetNumR">
+                        </label>
+                    </div>
+
+                    <div class="small-12 columns">
+                        <label>
+                            Street Name
+                            <input type="text" placeholder="Street Name" id="streetNameR">
+                        </label>
+                    </div>
+
+                    <div class="small-12 columns">
+                        <label>
+                            City
+                            <input type="text" placeholder="City" id="cityR">
+                        </label>
+                    </div>
+
+                    <div class="small-12 columns">
+                        <label>
+                            State/Province
+                            <input type="text" placeholder="State/Province" id="stateProvinceR">
+                        </label>
+                    </div>
+
+                    <h3 class="text-center form-section-header">User Address</h3>
+                    
+
+                    <div class="small-12 columns">
+                        <label>
+                            Street Number
+                            <input type="number" min="0" id="UserStreetNumR">
+                        </label>
+                    </div>
+
+                    <div class="small-12 columns">
+                        <label>
+                            Street Name
+                            <input type="text" placeholder="Street Name" id="UserStreetNameR">
+                        </label>
+                    </div>
+
+                    <div class="small-12 columns">
+                        <label>
+                            City
+                            <input type="text" placeholder="City" id="UserCityR">
+                        </label>
+                    </div>
+
+                    <div class="small-12 columns">
+                        <label>
+                            State/Province
+                            <input type="text" placeholder="State/Province" id="UserStateProvinceR">
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="button-group align-center">
+                    <a class="secondary button" data-close id="restaurantCloseBtn">Close</a>
+                    <a class="button" type="submit" id="restaurantSubmitBtn">Submit</a>
+                </div>
+
+            </form>
+
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
         <h1>Food</h1>
 
         <script src="./assets/js/vendor/jquery.js"></script>
