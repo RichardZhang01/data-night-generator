@@ -88,9 +88,9 @@ const printResults = (data) => {
 
         const cardContainerEl = $('<div class="card">');
         const generateGridEl = $('<div class="grid-x">');
-        const posterCellEl = $('<div class="cell large-2 medium-3 small-4">');
+        const posterCellEl = $('<div class="cell large-2 medium-3 small-0">');
         const posterImageEl = $('<img>');
-        const textCellEl = $('<div class="cell large-10 medium-9 small-8">');
+        const textCellEl = $('<div class="cell large-10 medium-9 small-12">');
         const titleContainerEl = $('<div class="card-divider">');
         const movieTitleEl = $('<h4 class="movie-title">');
         const infoContainerEl = $('<div class="card-section info-container">');
@@ -109,7 +109,7 @@ const printResults = (data) => {
         saveBtnEl.text('Select');
 
         ratingEl.append(ratingValueEl);
-        infoContainerEl.append(saveBtnEl);
+        
         infoContainerEl.append(ratingEl);
         infoContainerEl.append(overviewEl);
         titleContainerEl.append(movieTitleEl);
@@ -120,6 +120,11 @@ const printResults = (data) => {
         generateGridEl.append(textCellEl);
         cardContainerEl.append(generateGridEl);
         movieBlocksEl.append(cardContainerEl);
+        
+        const genresEl = $("<p>");
+        genresEl.text("Genres: ");
+        infoContainerEl.append(genresEl);
+        infoContainerEl.append(saveBtnEl);
         
 
         let genreURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + key + "&language=en-US";
@@ -141,10 +146,6 @@ const printResults = (data) => {
                   console.log(`---- iteration ${x} -----`);
                   console.log(genre_ids);
 
-                  genresEl = $("<p>");
-                  genresEl.text("Genres: ");
-                  infoContainerEl.append(genresEl);
-
                   for (let y in genre_ids) {
                     for (let z in genreList){
 
@@ -157,7 +158,7 @@ const printResults = (data) => {
                         console.log("----SUCCESS----");
                         console.log(genreList[z].name);
 
-                        genreSpanEl = $("<span>");
+                        const genreSpanEl = $("<span>");
                         genreSpanEl.text(`[${genreList[z].name}] `);
                         genresEl.append(genreSpanEl);
 
