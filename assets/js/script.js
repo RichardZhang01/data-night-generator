@@ -1,6 +1,7 @@
 {
 
 const submitBtn = $("#submitBtn");
+const resturantBtn = $("#restaurantSubmitBtn")
 const moviesAPIKey = "91d53f14a017df935d07d6021001286c";
 
 const retrieveData = () => {
@@ -18,22 +19,15 @@ const retrieveData = () => {
     location.assign(queryString);
 }
 
-// fetchmovies = () => {
+const saveRestaurant = () => {
 
-//     const url = "https://api.themoviedb.org/3/discover/movie?api_key="+ moviesAPIKey +"&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+    const priceRange = $("#priceRangeR").val();
 
-//     fetch(url)
-//     .then(function (response) {
-//         return response.json();
-//     })
-//     .then(function (data) {
-//         console.log(data);
-//     });
+    console.log(priceRange);
 
-// }
-
-// fetchmovies();
+}
 
 submitBtn.click(retrieveData)
+resturantBtn.click(saveRestaurant);
 
 }
