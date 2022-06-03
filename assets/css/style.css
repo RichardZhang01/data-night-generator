@@ -59,6 +59,11 @@ input, select {
     border-radius: 5px !important;
 }
 
+.restaurant-title {
+    text-align: center !important;
+    width: 100%;
+}
+
 /* .movie-title {
     font-size: 1.5rem;
 }
