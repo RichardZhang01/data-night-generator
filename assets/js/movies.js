@@ -27,13 +27,50 @@ function getParams(){
 
 const searchAPI = (genre, sort) => {
 
-    // if (genre === "%20" && sort === "%20") {
-
-    // }
+    if (genre === "%20" && sort === "%20") {
+        console.log("sort and genre empty");
+        searchTrending();
+        return;
+    }
 
     const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}`;
 
     fetch(movieUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+
+      return response.json();
+    })
+    .then(function (data) {
+      
+    //   resultTextEl.textContent = locRes.search.query;
+
+      console.log(data);
+
+      if (!data.results.length) {
+        console.log('No results found!');
+        // resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
+      } else {
+        // resultContentEl.textContent = '';
+        // for (var i = 0; i < locRes.results.length; i++) {
+        //   printResults(locRes.results[i]);
+        // }
+        printResults(data);
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+}
+
+const searchTrending = () => {
+
+  const trendingUrl = `https://api.themoviedb.org/3/trending/movie/week?api_key=${key}`;
+
+  fetch(trendingUrl)
     .then(function (response) {
       if (!response.ok) {
         throw response.json();
