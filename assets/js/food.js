@@ -60,8 +60,9 @@ restaurantSubmitBtn.on('click',generateRestaurant)
 
 //Printing options to page
 //Place Holder selection for testing purposes until program can navigate to this page and actually filter selections can be carried over
-let cusine = 'Italian';
-let price = '1';
+let cusineFilter = 'Italian';
+let priceFilter = '1';
+let distanceFilter = 5;
 
 const printResults = () => {
 
@@ -78,7 +79,7 @@ const printResults = () => {
         const priceCard = restaurantList[x].price
         const distanceCard = restaurantList[x].distance;
 
-        if(cusineCard === cusine && priceCard === price){
+        if(cusineCard === cusineFilter && priceCard === priceFilter && distanceCard <= distanceFilter){
 
             const cardContainerEl = $('<div class="card text-center">');
             const generateGridEl = $('<div class="grid-x">');
