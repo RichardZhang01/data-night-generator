@@ -141,7 +141,7 @@ const printResults = (data) => {
         saveBtnEl.text('Select');
 
         ratingEl.append(ratingValueEl);
-        
+        infoContainerEl.append(saveBtnEl);
         infoContainerEl.append(ratingEl);
         infoContainerEl.append(overviewEl);
         titleContainerEl.append(movieTitleEl);
@@ -156,7 +156,7 @@ const printResults = (data) => {
         const genresEl = $("<p>");
         genresEl.text("Genres: ");
         infoContainerEl.append(genresEl);
-        infoContainerEl.append(saveBtnEl);
+        
         
 
         let genreURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + key + "&language=en-US";
