@@ -178,8 +178,8 @@ const printResults = (data) => {
                   // console.log(`---- iteration ${x} -----`);
                   // console.log(genre_ids);
 
-                  genresEl = $("<p>");
-                  genresEl.text("Genres: ");
+                  // genresEl = $("<p>");
+                  // genresEl.text("Genres: ");
                   infoContainerEl.append(genresEl);
 
                   for (let y in genre_ids) {
