@@ -93,9 +93,10 @@ const printResults = () => {
             const saveBtnEl = $('<button class="button hollow success selectBtn">');
 
             retaurantNameEl.text(nameCard);
-            cusineEl.text(cusineCard);
-            priceEl.text(priceCard);
-            distanceEl.text(distanceCard);
+            cusineEl.text('Cuisine: '+cusineCard);
+            //adding 1 to priceCard because potential value ranges from 0 to 3
+            priceEl.text('Price: '+('$'.repeat((parseInt(priceCard)+1))));
+            distanceEl.text('Distance: '+distanceCard);
             saveBtnEl.text('Select');
 
             nameContainerEl.append(retaurantNameEl);
