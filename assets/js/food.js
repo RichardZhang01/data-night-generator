@@ -1,32 +1,58 @@
 //functionality for 'add restaurant button'
 let key = 'vmOdGP0ypNDcYTMyoNuk0n9x2sEXniq5';
 let userLocation = '';
-let retaurantLocation = '';
+let restaurantLocation = '';
 
-let newRetaurantSubmit = $('newRetaurantSubmit') 
+let newRestaurantSubmit = $('newRestaurantSubmit');
 
 let distance = '';
-let retaurantARR = [];
-if (localStorage.getItem('restaurants') !== null){
-    retaurantARR = JSON.parse(localStorage.getItem('restaurants'));
-}
+let restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
+// if (localStorage.getItem('restaurants') !== null){
+//     restaurantARR = JSON.parse(localStorage.getItem('restaurants'));
+// }
 
-let newRetaurant = {
+let newRestaurant = {
     name:"",
     cusine:"",
     price:"",
     distance:"",
 }
 
-let restaurantSubmitBtn = $('#restaurantSubmitBtn')
+let restaurantSubmitBtn = $('#restaurantSubmitBtn');
+
+const getParams = () => {
+
+    const queryString = document.location.search.split(/[=&]+/);
+
+    const cuisine = queryString[1];
+    const expense = queryString[3];
+    const distance = queryString[5];
+
+    console.log(document.location.search)
+    console.log(queryString);
+    console.log(cuisine);
+    console.log(expense);
+    console.log(distance);
+
+    // searchAPI(cuisine, expense, distance);
+}
+
+const searchAPI = (cuisine, expense, distance) => {
+    
+    // const queryURL = `http://www.mapquestapi.com/directions/v2/routematrix?key=${key}&cuisine=${cuisine}&expense=${expense}&distance=${distance}` or something
+
+    // fetch(queryURL).then().then();
+    
+    return;
+}
 
 function generateRestaurant(event){
     userLocation = $('#UserStreetNumR').val()+' '+$('#UserStreetNameR').val()+','+$('#UserCityR').val()+','+$('#UserStateProvinceR').val();
-    retaurantLocation = $('#streetNumR').val()+" "+$('#streetNameR').val()+','+$('#cityR').val()+','+$('#stateProvinceR').val();
+    restaurantLocation = $('#streetNumR').val()+" "+$('#streetNameR').val()+','+$('#cityR').val()+','+$('#stateProvinceR').val();
     let locations = {
         "locations": [
             userLocation,
-            retaurantLocation,
+            restaurantLocation,
         ],
     }
 
@@ -42,18 +68,20 @@ function generateRestaurant(event){
         })
         .then(function (data) {  
             console.log(data)
-            newRetaurant.name = $('#restaurantNameR').val();
-            newRetaurant.cusine = $('#cuisineR').val();
-            newRetaurant.price = $('#priceRangeR').val();         
-            newRetaurant.distance = data.distance[1];
+            newRestaurant.name = $('#restaurantNameR').val();
+            newRestaurant.cusine = $('#cuisineR').val();
+            newRestaurant.price = $('#priceRangeR').val();         
+            newRestaurant.distance = data.distance[1];
             if(localStorage.getItem('restaurants')!==null){
-                retaurantARR = JSON.parse(localStorage.getItem('restaurants'));
+                restaurantARR = JSON.parse(localStorage.getItem('restaurants'));
             }
-            retaurantARR.push(newRetaurant);
+            restaurantARR.push(newRestaurant);
             localStorage.setItem('restaurants',JSON.stringify(retaurantARR));
         });
 
 }
+
+getParams();
 
 restaurantSubmitBtn.on('click',generateRestaurant)
 //functionality for add restaurant button end
