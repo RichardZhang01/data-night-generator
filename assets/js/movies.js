@@ -201,5 +201,5 @@ movieBlocks.on("click",".selectBtn",function(){
   selectedMovieId = $(this).attr("value");
   console.log(selectedMovieId);
   localStorage.setItem("selectedMovieId",JSON.stringify(selectedMovieId));  
-  window.location.href = "./food.html?&cuisine=" + cuisine + "&expense=" + expense + "&distance=" + distance;
+  window.location.href = "./food.html?cuisine=" + cuisine + "&expense=" + expense + "&distance=" + distance;
 });
