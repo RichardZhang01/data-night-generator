@@ -1,11 +1,14 @@
 const key = "91d53f14a017df935d07d6021001286c";
 let chosenMovieId;
+const movieBlocksEl = $(".movie-blocks");
+let storedRestaurant = localStorage.getItem("selectedRestaurant");
 
 function init(){
     let storedMovieId = JSON.parse(localStorage.getItem("selectedMovieId"));
     console.log(storedMovieId);
     chosenMovieId = storedMovieId;
-    chosenMovie();
+    chosenMovie(); 
+
 }
 
 function chosenMovie() {
@@ -18,7 +21,6 @@ function chosenMovie() {
                 response.json().then(function(data){
                     console.log(data);
 
-                    const movieBlocksEl = $(".movie-blocks");
                     movieBlocksEl.empty();
 
                     const title = data.title;
@@ -73,9 +75,54 @@ function chosenMovie() {
                         genresEl.append(genreSpanEl);
                     }
 
+                    chosenRestaurant(storedRestaurant);
                 })
+
             }
+
         })
+    
+}
+
+const chosenRestaurant = (restaurantIndex) => {
+
+    const storedRestaurantList = JSON.parse(localStorage.getItem('restaurants'));
+
+    const restaurant = storedRestaurantList[restaurantIndex];
+
+    console.log(restaurant);
+
+    const nameCard = restaurant.name;
+    const cusineCard = restaurant.cusine;
+    const priceCard = restaurant.price
+    const distanceCard = restaurant.distance;
+
+    const cardContainerEl = $('<div class="card text-center">');
+    const generateGridEl = $('<div class="grid-x">');
+    const textCellEl = $('<div class="cell">');
+    const nameContainerEl = $('<div class="card-divider">');
+    const restaurantNameEl = $('<h4 class="restaurant-title">');
+    const infoContainerEl = $('<div class="card-section">');
+    const cusineEl = $('<p>');
+    const priceEl = $('<p>');
+    const distanceEl = $('<p>');
+
+    restaurantNameEl.text(nameCard);
+    cusineEl.text('Cuisine: '+cusineCard);
+    //adding 1 to priceCard because potential value ranges from 0 to 3
+    priceEl.text('Price: '+('$'.repeat((parseInt(priceCard)+1))));
+    distanceEl.text('Distance: '+ distanceCard +' km');
+
+    nameContainerEl.append(restaurantNameEl);
+    infoContainerEl.append(cusineEl);
+    infoContainerEl.append(priceEl);
+    infoContainerEl.append(distanceEl);
+    textCellEl.append(nameContainerEl);
+    textCellEl.append(infoContainerEl);
+    generateGridEl.append(textCellEl);
+    cardContainerEl.append(generateGridEl);
+    movieBlocksEl.append(cardContainerEl);
+
 }
 
 init();
