@@ -4,6 +4,7 @@ let userLocation = '';
 let restaurantLocation = '';
 
 let newRestaurantSubmit = $('newRestaurantSubmit');
+const restaurantBlocksEL = $(".restaurant-blocks");
 
 let distance = '';
 let restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
@@ -110,7 +111,6 @@ restaurantSubmitBtn.on('click', generateRestaurant);
 
 const printResults = (cusineFilter, priceFilter, distanceFilter) => {
 
-    const restaurantBlocksEL = $(".restaurant-blocks");
     const restaurantList = JSON.parse(localStorage.getItem('restaurants'));
 
     console.log(restaurantList);
@@ -123,7 +123,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
         const priceCard = restaurantList[x].price
         const distanceCard = restaurantList[x].distance;
 
-        if(cusineCard === cusineFilter && priceCard === priceFilter && distanceCard <= distanceFilter){
+        if(cusineCard === cusineFilter && priceCard <= priceFilter && distanceCard <= distanceFilter){
 
             const cellContainerEl = $('<div class="cell">');
             const cardContainerEl = $('<div class="card text-center">');
@@ -141,8 +141,9 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
             cusineEl.text('Cuisine: '+cusineCard);
             //adding 1 to priceCard because potential value ranges from 0 to 3
             priceEl.text('Price: '+('$'.repeat((parseInt(priceCard)+1))));
-            distanceEl.text('Distance: '+distanceCard+' km');
+            distanceEl.text('Distance: '+ distanceCard +' km');
             saveBtnEl.text('Select');
+            saveBtnEl.attr('value', x);
 
             nameContainerEl.append(restaurantNameEl);
             infoContainerEl.append(saveBtnEl);
@@ -159,6 +160,16 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
     }
 }
 
+const toResultsPage = (event) => {
+
+    const buttonClicked = $(event.target).val();
+
+    localStorage.setItem('selectedRestaurant', buttonClicked);
+    location.replace('./summary.html');
+}
+
 
 getParams();
 // printResults();
+
+restaurantBlocksEL.on('click', '.selectBtn', toResultsPage);
