@@ -45,7 +45,7 @@ function generateRestaurant(event){
             newRetaurant.name = $('#restaurantNameR').val();
             newRetaurant.cusine = $('#cuisineR').val();
             newRetaurant.price = $('#priceRangeR').val();         
-            newRetaurant.distance = data.distance[1];
+            newRetaurant.distance = Math.round(((data.distance[1]*1.60934) + Number.EPSILON) * 100) / 100;
             if(localStorage.getItem('restaurants')!==null){
                 retaurantARR = JSON.parse(localStorage.getItem('restaurants'));
             }
@@ -96,7 +96,7 @@ const printResults = () => {
             cusineEl.text('Cuisine: '+cusineCard);
             //adding 1 to priceCard because potential value ranges from 0 to 3
             priceEl.text('Price: '+('$'.repeat((parseInt(priceCard)+1))));
-            distanceEl.text('Distance: '+distanceCard);
+            distanceEl.text('Distance: '+distanceCard+' km');
             saveBtnEl.text('Select');
 
             nameContainerEl.append(retaurantNameEl);
