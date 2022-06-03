@@ -4,21 +4,6 @@ let cuisine;
 let expense;
 let distance;
 
-// let sort = "popularity.desc";
-// let genre = "Family";
-
-// let mov1 = $("#mov1");
-// let mov2 = $("#mov2");
-// let mov3 = $("#mov3");
-// let mov4 = $("#mov4");
-// let mov5 = $("#mov5");
-
-// let desc1 = $("#desc1");
-// let desc2 = $("#desc2");
-// let desc3 = $("#desc3");
-// let desc4 = $("#desc4");
-// let desc5 = $("#desc5");
-
 function getParams(){
 
     const queryString = document.location.search.split(/[=&]+/);
@@ -37,8 +22,6 @@ function getParams(){
     console.log(expense);
     console.log(distance);
 
-    // document.location.replace("./foods.html?cuisine=${cuisine}&distance=${distance}");
-
     searchAPI(genre, sort);
 }
 
@@ -48,7 +31,7 @@ const searchAPI = (genre, sort) => {
 
     // }
 
-    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}`
+    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}`;
 
     fetch(movieUrl)
     .then(function (response) {
@@ -100,16 +83,16 @@ const printResults = (data) => {
 
         const cardContainerEl = $('<div class="card">');
         const generateGridEl = $('<div class="grid-x">');
-        const posterCellEl = $('<div class="cell large-2 medium-3 small-4">');
+        const posterCellEl = $('<div class="cell large-2 medium-4 small-0">');
         const posterImageEl = $('<img>');
-        const textCellEl = $('<div class="cell large-10 medium-9 small-8">');
+        const textCellEl = $('<div class="cell large-10 medium-8 small-12">');
         const titleContainerEl = $('<div class="card-divider">');
         const movieTitleEl = $('<h4 class="movie-title">');
         const infoContainerEl = $('<div class="card-section info-container">');
         const ratingEl = $('<p>');
         const ratingValueEl = $('<span>');
-        const overviewEl = $('<p>');
-        const saveBtnEl = $('<button class="button hollow success selectBtn">')
+        const overviewEl = $('<p class="overview">');
+        const saveBtnEl = $('<button class="button hollow success selectBtn">');
 
         posterImageEl.attr('src', `https://image.tmdb.org/t/p/original${posterPath}`);
         posterImageEl.attr('alt', `Movie Poster for ${title}`);
@@ -121,7 +104,7 @@ const printResults = (data) => {
         saveBtnEl.text('Select');
 
         ratingEl.append(ratingValueEl);
-        infoContainerEl.append(saveBtnEl);
+        
         infoContainerEl.append(ratingEl);
         infoContainerEl.append(overviewEl);
         titleContainerEl.append(movieTitleEl);
@@ -132,6 +115,11 @@ const printResults = (data) => {
         generateGridEl.append(textCellEl);
         cardContainerEl.append(generateGridEl);
         movieBlocksEl.append(cardContainerEl);
+        
+        const genresEl = $("<p>");
+        genresEl.text("Genres: ");
+        infoContainerEl.append(genresEl);
+        infoContainerEl.append(saveBtnEl);
         
 
         let genreURL = "https://api.themoviedb.org/3/genre/movie/list?api_key=" + key + "&language=en-US";
