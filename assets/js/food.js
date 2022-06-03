@@ -57,3 +57,62 @@ function generateRestaurant(event){
 
 restaurantSubmitBtn.on('click',generateRestaurant)
 //functionality for add restaurant button end
+
+//Printing options to page
+//Place Holder selection for testing purposes until program can navigate to this page and actually filter selections can be carried over
+let cusine = 'Italian';
+let price = '1';
+
+const printResults = () => {
+
+    const restaurantBlocksEL = $(".restaurant-blocks");
+    const restaurantList = JSON.parse(localStorage.getItem('restaurants'));
+
+    console.log(restaurantList);
+    restaurantBlocksEL.empty();
+
+    for (let x in restaurantList) {
+
+        const nameCard = restaurantList[x].name;
+        const cusineCard = restaurantList[x].cusine;
+        const priceCard = restaurantList[x].price
+        const distanceCard = restaurantList[x].distance;
+
+        if(cusineCard === cusine && priceCard === price){
+
+            const cardContainerEl = $('<div class="card text-center">');
+            const generateGridEl = $('<div class="grid-x">');
+            const textCellEl = $('<div class="cell">');
+            const nameContainerEl = $('<div class="card-divider">');
+            const retaurantNameEl = $('<h4 class="restaurant-title">');
+            const infoContainerEl = $('<div class="card-section">');
+            const cusineEl = $('<p>');
+            const priceEl = $('<p>');
+            const distanceEl = $('<p>');
+            const saveBtnEl = $('<button class="button hollow success selectBtn">');
+
+            retaurantNameEl.text(nameCard);
+            cusineEl.text(cusineCard);
+            priceEl.text(priceCard);
+            distanceEl.text(distanceCard);
+            saveBtnEl.text('Select');
+
+            nameContainerEl.append(retaurantNameEl);
+            infoContainerEl.append(saveBtnEl);
+            infoContainerEl.append(cusineEl);
+            infoContainerEl.append(priceEl);
+            infoContainerEl.append(distanceEl);
+            textCellEl.append(nameContainerEl);
+            textCellEl.append(infoContainerEl);
+            generateGridEl.append(textCellEl);
+            cardContainerEl.append(generateGridEl);
+            restaurantBlocksEL.append(cardContainerEl)
+        }
+
+
+
+
+    }
+}
+
+printResults();

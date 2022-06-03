@@ -21,12 +21,54 @@
 
     <body>
 
-        <div class="grid-x grid-padding-x grid-padding-y shrink header">
+        <div class="grid-y grid-frame">
 
-            <div class="cell small-10"></div>
+            <div class="grid-x grid-padding-x grid-padding-y shrink header">
 
-            <div class="cell small-2">
-                <button class="restaurant-btn button hollow warning expanded" data-open="restaurant-modal">Add Restaurant</button>
+                <div class="cell small-10 food-header">
+                    <h1>Food</h1>
+                </div>
+    
+                <div class="cell small-2">
+                    <button class="restaurant-btn button hollow warning expanded" data-open="restaurant-modal">Add Restaurant</button>
+                </div>
+    
+            </div>
+
+            <div class="cell auto body cell-block-container">
+
+                <div class="grid-x grid-padding-x">
+                    
+                    <div class="cell cell-block-y restaurant-blocks">
+
+                        <!-- Generated cards go here -->
+
+                        <!-- layout -->
+                        <div class="card text-center">
+
+                            <div class="grid-x">
+
+                                <div class="cell">
+
+                                    <div class="card-divider">
+                                        <h4>Restaurant Name</h4>
+                                    </div>
+
+                                    <div class="card-section">
+                                        <p>Distance</p>
+                                        <p>Cuisine</p>
+                                        <p>Price</p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
@@ -144,7 +186,7 @@
 
         </div>
 
-        <h1>Food</h1>
+        
 
         <script src="./assets/js/vendor/jquery.js"></script>
         <script src="./assets/js/vendor/what-input.js"></script>
