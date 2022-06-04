@@ -46,6 +46,8 @@ let newRetaurant = {
 let restaurantSubmitBtn = $('#restaurantSubmitBtn')
 
 function generateRestaurant(event){
+    event.preventDefault();
+
     userLocation = localStorage.getItem('userLocation');
     console.log(userLocation);
     retaurantLocation = $('#streetNumR').val()+" "+$('#streetNameR').val()+','+$('#cityR').val()+','+$('#stateProvinceR').val();
@@ -72,10 +74,10 @@ function generateRestaurant(event){
             newRetaurant.cusine = $('#cuisineR').val();
             newRetaurant.price = $('#priceRangeR').val();         
             newRetaurant.distance = data.distance[1];
-            if(localStorage.getItem('restaurants')!==null){
-                retaurantARR = JSON.parse(localStorage.getItem('restaurants'));
-            }
+            retaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
             retaurantARR.push(newRetaurant);
+            console.log("array");
+            console.log(retaurantARR);
             localStorage.setItem('restaurants',JSON.stringify(retaurantARR));
         });
 
@@ -83,15 +85,16 @@ function generateRestaurant(event){
 
 const addressSubmitBtn = $('#addressSubmitBtn');
 
-const saveAddress = () => {
+const saveAddress = (event) => {
 
+    event.preventDefault();
     userLocation = $('#UserStreetNumR').val()+' '+$('#UserStreetNameR').val()+','+$('#UserCityR').val()+','+$('#UserStateProvinceR').val();
     localStorage.setItem('userLocation', userLocation);
 
 }
 
-addressSubmitBtn.on('click', saveAddress);
-restaurantSubmitBtn.on('click',generateRestaurant);
+addressSubmitBtn.on('submit', saveAddress);
+restaurantSubmitBtn.on('click', generateRestaurant);
 submitBtn.click(retrieveData)
 resturantBtn.click(saveRestaurant);
 //functionality for add restaurant button end
