@@ -1,5 +1,3 @@
-{
-
 const submitBtn = $("#submitBtn");
 const resturantBtn = $("#restaurantSubmitBtn")
 const moviesAPIKey = "91d53f14a017df935d07d6021001286c";
@@ -27,22 +25,16 @@ const saveRestaurant = () => {
 
 }
 
-submitBtn.click(retrieveData)
-resturantBtn.click(saveRestaurant);
 
-}
 //functionality for 'add restaurant button start
 let key = 'vmOdGP0ypNDcYTMyoNuk0n9x2sEXniq5';
 let userLocation = '';
 let retaurantLocation = '';
 
-let newRetaurantSubmit = $('newRetaurantSubmit') 
+let newRetaurantSubmit = $('newRetaurantSubmit') ;
 
 let distance = '';
-let retaurantARR = [];
-if (localStorage.getItem('restaurants') !== null){
-    retaurantARR = JSON.parse(localStorage.getItem('restaurants'));
-}
+let retaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
 
 let newRetaurant = {
     name:"",
@@ -54,7 +46,8 @@ let newRetaurant = {
 let restaurantSubmitBtn = $('#restaurantSubmitBtn')
 
 function generateRestaurant(event){
-    userLocation = $('#UserStreetNumR').val()+' '+$('#UserStreetNameR').val()+','+$('#UserCityR').val()+','+$('#UserStateProvinceR').val();
+    userLocation = localStorage.getItem('userLocation');
+    console.log(userLocation);
     retaurantLocation = $('#streetNumR').val()+" "+$('#streetNameR').val()+','+$('#cityR').val()+','+$('#stateProvinceR').val();
     let locations = {
         "locations": [
@@ -88,5 +81,17 @@ function generateRestaurant(event){
 
 }
 
-restaurantSubmitBtn.on('click',generateRestaurant)
+const addressSubmitBtn = $('#addressSubmitBtn');
+
+const saveAddress = () => {
+
+    userLocation = $('#UserStreetNumR').val()+' '+$('#UserStreetNameR').val()+','+$('#UserCityR').val()+','+$('#UserStateProvinceR').val();
+    localStorage.setItem('userLocation', userLocation);
+
+}
+
+addressSubmitBtn.on('click', saveAddress);
+restaurantSubmitBtn.on('click',generateRestaurant);
+submitBtn.click(retrieveData)
+resturantBtn.click(saveRestaurant);
 //functionality for add restaurant button end

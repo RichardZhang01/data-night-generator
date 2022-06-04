@@ -1,7 +1,11 @@
 body {
     font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
     /* background: linear-gradient( 109.6deg,  rgba(218,185,252,1) 11.2%, rgba(125,89,252,1) 91.1% ); */
-    background: linear-gradient(to right, #ad5389, #3c1053);
+    /* background: linear-gradient(to right, #ad5389, #3c1053); */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/night-sky.jpg"); /* The image used */
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
 }
 
 .landing { 
@@ -11,12 +15,6 @@ body {
     padding: 15px;
     width: 50%;
 }
-
-/* .info-container {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-} */
 
 .title {
     font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
@@ -30,8 +28,11 @@ body {
 
 .generate-btn {
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19) !important;
-    border-radius: 5px !important;
     margin-top: 20px;
+}
+
+.button {
+    border-radius: 5px !important;
 }
 
 form {
@@ -46,8 +47,12 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
 }
 
-#form-main-header {
-    border-bottom: 2px solid lightgray;
+.reveal {
+    border-radius: 5px !important;
+}
+
+.form-main-header {
+    border-bottom: 1px solid lightgray;
     padding-bottom: 5px;
 }
 
@@ -64,18 +69,9 @@ input, select {
     width: 100%;
 }
 
-/* .movie-title {
-    font-size: 1.5rem;
+.slider-handle {
+    border-radius: 20px !important;
 }
-
-.card-section {
-    font-size: 1.2rem;
-} */
-
-/* .overview {
-    max-height: 80px;
-    overflow: scroll;
-} */
 
 .movies-header {
     color: white;
