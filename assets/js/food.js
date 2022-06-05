@@ -58,12 +58,14 @@ const fetchRestaurants = () => {
                     name:"",
                     cusine:"",
                     price:"",
+                    address:"",
                     distance:"",
                 }
 
                 newRestaurant.name = restaurants[x].restaurantName;
                 newRestaurant.cusine = restaurants[x].cuisine;
-                newRestaurant.price = restaurants[x].price;         
+                newRestaurant.price = restaurants[x].price;
+                newRestaurant.address = `${restaurants[x].streetNum} ${restaurants[x].streetName}`;      
                 newRestaurant.distance = Math.round(((data.distance[1]*1.60934) + Number.EPSILON) * 100) / 100;
 
                 restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
@@ -93,6 +95,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
         const cusineCard = restaurantList[x].cusine;
         const priceCard = restaurantList[x].price
         const distanceCard = restaurantList[x].distance;
+        const addressCard = restaurantList[x].address;
 
         if(cusineCard === cusineFilter && priceCard <= priceFilter && distanceCard <= distanceFilter){
 
@@ -106,6 +109,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
             const cusineEl = $('<p>');
             const priceEl = $('<p>');
             const distanceEl = $('<p>');
+            const addressEl = $('<p>');
             const saveBtnEl = $('<button class="button hollow success selectBtn">');
 
             restaurantNameEl.text(nameCard);
@@ -113,6 +117,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
             //adding 1 to priceCard because potential value ranges from 0 to 3
             priceEl.text('Price: '+('$'.repeat((parseInt(priceCard)+1))));
             distanceEl.text('Distance: '+ distanceCard +' km');
+            addressEl.text('Address: '+ addressCard)
             saveBtnEl.text('Select');
             saveBtnEl.attr('value', x);
 
@@ -120,6 +125,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
             infoContainerEl.append(saveBtnEl);
             infoContainerEl.append(cusineEl);
             infoContainerEl.append(priceEl);
+            infoContainerEl.append(addressEl);
             infoContainerEl.append(distanceEl);
             textCellEl.append(nameContainerEl);
             textCellEl.append(infoContainerEl);

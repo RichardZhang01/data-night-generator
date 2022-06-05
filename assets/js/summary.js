@@ -93,6 +93,7 @@ const chosenRestaurant = (restaurantIndex) => {
     const cusineCard = restaurant.cusine;
     const priceCard = restaurant.price
     const distanceCard = restaurant.distance;
+    const addressCard = restaurant.address;
 
     const cellEl = $('<div class="cell">');
     const equalizerEl = $('<div data-equalizer-watch>')
@@ -104,17 +105,20 @@ const chosenRestaurant = (restaurantIndex) => {
     const infoContainerEl = $('<div class="card-section">');
     const cusineEl = $('<p>');
     const priceEl = $('<p>');
+    const addressEl = $('<p>');
     const distanceEl = $('<p>');
 
     restaurantNameEl.text(nameCard);
     cusineEl.text('Cuisine: '+cusineCard);
     //adding 1 to priceCard because potential value ranges from 0 to 3
     priceEl.text('Price: '+('$'.repeat((parseInt(priceCard)+1))));
+    addressEl.text('Address: '+ addressCard);
     distanceEl.text('Distance: '+ distanceCard +' km');
 
     nameContainerEl.append(restaurantNameEl);
     infoContainerEl.append(cusineEl);
     infoContainerEl.append(priceEl);
+    infoContainerEl.append(addressEl);
     infoContainerEl.append(distanceEl);
     textCellEl.append(nameContainerEl);
     textCellEl.append(infoContainerEl);

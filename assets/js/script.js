@@ -65,12 +65,14 @@ function generateRestaurant(){
                     name:"",
                     cusine:"",
                     price:"",
+                    address:"",
                     distance:"",
                 }
 
                 newRestaurant.name = restaurants[x].restaurantName;
                 newRestaurant.cusine = restaurants[x].cuisine;
-                newRestaurant.price = restaurants[x].price;         
+                newRestaurant.price = restaurants[x].price;
+                newRestaurant.address = `${restaurants[x].streetNum} ${restaurants[x].streetName}`;          
                 newRestaurant.distance = Math.round(((data.distance[1]*1.60934) + Number.EPSILON) * 100) / 100;
 
                 restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
