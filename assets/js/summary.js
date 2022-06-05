@@ -5,7 +5,6 @@ let storedRestaurant = localStorage.getItem("selectedRestaurant");
 
 function init(){
     let storedMovieId = JSON.parse(localStorage.getItem("selectedMovieId"));
-    console.log(storedMovieId);
     chosenMovieId = storedMovieId;
     chosenMovie(); 
 
@@ -17,9 +16,7 @@ function chosenMovie() {
     fetch(chosenMovieUrl)
         .then(function(response){
             if(response.ok){
-                console.log(response);
                 response.json().then(function(data){
-                    console.log(data);
 
                     movieBlocksEl.empty();
 
@@ -28,7 +25,6 @@ function chosenMovie() {
                     const releaseDate = data.release_date
                     const rating = data.vote_average;
                     const posterPath = data.poster_path;
-                    const movieID = data.id;
 
                     const cellMovEl = $('<div class="cell">');
                     const equalizerEl = $('<div data-equalizer-watch="foo">')
@@ -71,7 +67,6 @@ function chosenMovie() {
                     infoContainerEl.append(genresEl);
 
                     const selectedGenre = data.genres;
-                    console.log(selectedGenre);
 
                     for (let x in selectedGenre){
                         genreSpanEl = $("<span>");
@@ -93,8 +88,6 @@ const chosenRestaurant = (restaurantIndex) => {
     const storedRestaurantList = JSON.parse(localStorage.getItem('restaurants'));
 
     const restaurant = storedRestaurantList[restaurantIndex];
-
-    console.log(restaurant);
 
     const nameCard = restaurant.name;
     const cusineCard = restaurant.cusine;

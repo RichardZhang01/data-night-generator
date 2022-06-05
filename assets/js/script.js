@@ -13,8 +13,6 @@ const retrieveData = () => {
     const expense = $("#expense").val();
     const distance = $("#distance").val();
 
-    console.log(genre, sort, cuisine, expense, distance);
-
     const queryString = `./movies.html?genre=${genre}&sort=${sort}&cuisine=${cuisine}&expense=${expense}&distance=${distance}`;
 
     location.assign(queryString);
@@ -62,7 +60,6 @@ function generateRestaurant(){
                 return response.json();
             })
             .then(function (data) {  
-                console.log(data)
 
                 let newRestaurant = {
                     name:"",
@@ -76,18 +73,9 @@ function generateRestaurant(){
                 newRestaurant.price = restaurants[x].price;         
                 newRestaurant.distance = Math.round(((data.distance[1]*1.60934) + Number.EPSILON) * 100) / 100;
 
-                console.log(newRestaurant);
-
-                console.log("--- restaurant ARR before ---");
-                console.log(restaurantARR);
                 restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
-                // if(localStorage.getItem('restaurants')!==null){
-                //     restaurantARR = JSON.parse(localStorage.getItem('restaurants'));
-                // }
                 restaurantARR.push(newRestaurant);
 
-                console.log("--- restaurant ARR after ---");
-                console.log(restaurantARR);
                 localStorage.setItem('restaurants',JSON.stringify(restaurantARR));
 
             }); 

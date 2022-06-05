@@ -20,27 +20,17 @@ function getParams(){
     expense = queryString[7];
     distance = queryString[9];
     
-    console.log(document.location.search)
-    console.log(queryString);
-    console.log(genre);
-    console.log(sort);
-    console.log(cuisine);
-    console.log(expense);
-    console.log(distance);
-
     searchAPI(genre, sort);
 }
 
 const searchAPI = (genre, sort) => {
 
     if (genre === "%20" && sort === "%20") {
-        console.log("sort and genre empty");
         searchTrending();
         return;
     }
 
     if (sort === "top_rated") {
-      console.log("rating");
       searchTopRated();
       return;
   }
@@ -64,18 +54,9 @@ const searchAPI = (genre, sort) => {
     })
     .then(function (data) {
       
-    //   resultTextEl.textContent = locRes.search.query;
-
-      console.log(data);
-
       if (!data.results.length) {
         console.log('No results found!');
-        // resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
       } else {
-        // resultContentEl.textContent = '';
-        // for (var i = 0; i < locRes.results.length; i++) {
-        //   printResults(locRes.results[i]);
-        // }
         printResults(data);
       }
     })
@@ -99,18 +80,9 @@ const searchTrending = () => {
     })
     .then(function (data) {
       
-    //   resultTextEl.textContent = locRes.search.query;
-
-      console.log(data);
-
       if (!data.results.length) {
         console.log('No results found!');
-        // resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
       } else {
-        // resultContentEl.textContent = '';
-        // for (var i = 0; i < locRes.results.length; i++) {
-        //   printResults(locRes.results[i]);
-        // }
         printResults(data);
       }
     })
@@ -134,18 +106,9 @@ const searchTopRated = () => {
     })
     .then(function (data) {
       
-    //   resultTextEl.textContent = locRes.search.query;
-
-      console.log(data);
-
       if (!data.results.length) {
         console.log('No results found!');
-        // resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
       } else {
-        // resultContentEl.textContent = '';
-        // for (var i = 0; i < locRes.results.length; i++) {
-        //   printResults(locRes.results[i]);
-        // }
         printResults(data);
       }
     })
@@ -159,10 +122,7 @@ const printResults = (data) => {
 
     const movieBlocksEl = $(".movie-blocks");
     const movieList = data.results;
-    // maxPages = data.total_pages;
-    // console.log(maxPages);
 
-    console.log(movieList);
     movieBlocksEl.empty();
 
     for (let x in movieList) {
@@ -220,41 +180,24 @@ const printResults = (data) => {
         fetch(genreURL)
           .then(function(response){
             if(response.ok){
-              // console.log(response);
               response.json().then(function(data){
-                // console.log("---genrelist---");
-                // console.log(data.genres);
-                // console.log(movieList);
-                // console.log(movieList.length);
 
                 let genreList = data.genres;
                 
                 
                   let genre_ids = movieList[x].genre_ids;
-                  // console.log(`---- iteration ${x} -----`);
-                  // console.log(genre_ids);
 
-                  // genresEl = $("<p>");
-                  // genresEl.text("Genres: ");
                   infoContainerEl.append(genresEl);
 
                   for (let y in genre_ids) {
                     for (let z in genreList){
 
-                      
-                      // console.log("---- COMPARISON ----")
-                      // console.log(genre_ids[y]);
-                      // console.log(genreList[z].id);
-
                       if(genre_ids[y]===genreList[z].id){
-                        // console.log("----SUCCESS----");
-                        // console.log(genreList[z].name);
 
                         genreSpanEl = $("<span>");
                         genreSpanEl.text(`[${genreList[z].name}] `);
                         genresEl.append(genreSpanEl);
 
-                        // 
                       }
 
                     }
@@ -263,8 +206,6 @@ const printResults = (data) => {
               })
             }
           })
-
-          
 
     }
 
