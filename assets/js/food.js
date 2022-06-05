@@ -2,27 +2,25 @@
 let key = 'vmOdGP0ypNDcYTMyoNuk0n9x2sEXniq5';
 let userLocation = '';
 let restaurantLocation = '';
-
-let newRestaurantSubmit = $('newRestaurantSubmit');
-const restaurantBlocksEL = $(".restaurant-blocks");
-
-let distance = '';
-let restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
-// if (localStorage.getItem('restaurants') !== null){
-//     restaurantARR = JSON.parse(localStorage.getItem('restaurants'));
-// }
-
-
+let cuisine;
+let expense;
+let distance;
 
 let restaurantSubmitBtn = $('#restaurantSubmitBtn');
+let newRestaurantSubmit = $('newRestaurantSubmit');
+const restaurantBlocksEL = $(".restaurant-blocks");
+const addressSubmitBtn = $('#addressSubmitBtn');
+
+let restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
+let savedRestaurantsList = JSON.parse(localStorage.getItem('savedRestaurants')) || [];
 
 const getParams = () => {
 
     const queryString = document.location.search.split(/[=&]+/);
 
-    const cuisine = queryString[1];
-    const expense = queryString[3];
-    const distance = queryString[5];
+    cuisine = queryString[1];
+    expense = queryString[3];
+    distance = queryString[5];
 
     console.log(document.location.search)
     console.log(queryString);
@@ -33,74 +31,82 @@ const getParams = () => {
     printResults(cuisine, expense, distance);
 }
 
-// const searchAPI = (cuisine, expense, distance) => {
-    
-//     // const queryURL = `http://www.mapquestapi.com/directions/v2/routematrix?key=${key}&cuisine=${cuisine}&expense=${expense}&distance=${distance}` or something
+const fetchRestaurants = () => {
 
-//     // fetch(queryURL).then().then();
-    
-//     return;
-// }
+    userLocation = localStorage.getItem('userLocation');
+    let restaurants = JSON.parse(localStorage.getItem('restaurantLocations')); 
 
-function generateRestaurant() {
+    localStorage.removeItem('restaurants');
 
-    userLocation = $('#UserStreetNumR').val()+' '+$('#UserStreetNameR').val()+','+$('#UserCityR').val()+','+$('#UserStateProvinceR').val();
-    restaurantLocation = $('#streetNumR').val()+" "+$('#streetNameR').val()+','+$('#cityR').val()+','+$('#stateProvinceR').val();
-    let locations = {
-        "locations": [
-            userLocation,
-            restaurantLocation,
-        ],
+    // restaurantLocation = $('#streetNumR').val()+" "+$('#streetNameR').val()+','+$('#cityR').val()+','+$('#stateProvinceR').val();
+
+    // let savedRestaurant = {
+    //     streetNum: $('#streetNumR').val(),
+    //     streetName: $('#streetNameR').val(),
+    //     city: $('#cityR').val(),
+    //     stateProv: $('#stateProvinceR').val(),
+    //     cuisine: $('#cuisineR').val(),
+    //     restaurantName: $('#restaurantNameR').val(),
+    //     price: $('#priceRangeR').val(),
+    // }
+
+    for (let x in restaurants) {
+
+        restaurantLocation = `${restaurants[x].streetNum} ${restaurants[x].streetName},${restaurants[x].city},${restaurants[x].stateProv}`;
+        let locations = {
+            "locations": [
+                userLocation,
+                restaurantLocation,
+            ],
+        }
+
+        fetch('http://www.mapquestapi.com/directions/v2/routematrix?key='+key, {
+            method: 'POST',
+            mode: 'cors',
+            cache: 'no-cache',
+            body: JSON.stringify(locations)
+
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {  
+                console.log(data)
+
+                let newRestaurant = {
+                    name:"",
+                    cusine:"",
+                    price:"",
+                    distance:"",
+                }
+
+                newRestaurant.name = restaurants[x].restaurantName;
+                newRestaurant.cusine = restaurants[x].cuisine;
+                newRestaurant.price = restaurants[x].price;         
+                newRestaurant.distance = Math.round(((data.distance[1]*1.60934) + Number.EPSILON) * 100) / 100;
+
+                console.log(newRestaurant);
+
+                console.log("--- restaurant ARR before ---");
+                console.log(restaurantARR);
+                restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
+                // if(localStorage.getItem('restaurants')!==null){
+                //     restaurantARR = JSON.parse(localStorage.getItem('restaurants'));
+                // }
+                restaurantARR.push(newRestaurant);
+
+                console.log("--- restaurant ARR after ---");
+                console.log(restaurantARR);
+                localStorage.setItem('restaurants',JSON.stringify(restaurantARR));
+
+                printResults(cuisine, expense, distance);
+
+            }); 
+
     }
 
-    fetch('http://www.mapquestapi.com/directions/v2/routematrix?key='+key, {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        body: JSON.stringify(locations)
-
-        })
-        .then(function (response) {
-            return response.json();
-        })
-        .then(function (data) {  
-            console.log(data)
-
-            let newRestaurant = {
-                name:"",
-                cusine:"",
-                price:"",
-                distance:"",
-            }
-
-            newRestaurant.name = $('#restaurantNameR').val();
-            newRestaurant.cusine = $('#cuisineR').val();
-            newRestaurant.price = $('#priceRangeR').val();         
-            newRestaurant.distance = Math.round(((data.distance[1]*1.60934) + Number.EPSILON) * 100) / 100;
-
-            console.log(newRestaurant);
-
-            console.log("--- restaurant ARR before ---");
-            console.log(restaurantARR);
-            restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
-            // if(localStorage.getItem('restaurants')!==null){
-            //     restaurantARR = JSON.parse(localStorage.getItem('restaurants'));
-            // }
-            restaurantARR.push(newRestaurant);
-
-            console.log("--- restaurant ARR after ---");
-            console.log(restaurantARR);
-            localStorage.setItem('restaurants',JSON.stringify(restaurantARR));
-
-            getParams();
-
-        });       
-    
 }
 
-
-
-restaurantSubmitBtn.on('click', generateRestaurant);
 //functionality for add restaurant button end
 
 //Printing options to page
@@ -165,11 +171,44 @@ const toResultsPage = (event) => {
     const buttonClicked = $(event.target).val();
 
     localStorage.setItem('selectedRestaurant', buttonClicked);
-    location.replace('./summary.html');
+    location.assign('./summary.html');
+}
+
+const saveAddress = (event) => {
+
+    event.preventDefault();
+    userLocation = $('#UserStreetNumR').val()+' '+$('#UserStreetNameR').val()+','+$('#UserCityR').val()+','+$('#UserStateProvinceR').val();
+    localStorage.setItem('userLocation', userLocation);
+
+    fetchRestaurants();
+}
+
+const saveRestaurant = (event) => {
+
+    event.preventDefault();
+
+    let savedRestaurant = {
+        streetNum: $('#streetNumR').val(),
+        streetName: $('#streetNameR').val(),
+        city: $('#cityR').val(),
+        stateProv: $('#stateProvinceR').val(),
+        cuisine: $('#cuisineR').val(),
+        restaurantName: $('#restaurantNameR').val(),
+        price: $('#priceRangeR').val(),
+    }
+    
+    savedRestaurantsList = JSON.parse(localStorage.getItem('restaurantLocations')) || [];
+    savedRestaurantsList.push(savedRestaurant);
+    localStorage.setItem('restaurantLocations', JSON.stringify(savedRestaurantsList));
+
+    fetchRestaurants();
 }
 
 
-getParams();
 // printResults();
-
+restaurantSubmitBtn.on('click', saveRestaurant);
 restaurantBlocksEL.on('click', '.selectBtn', toResultsPage);
+addressSubmitBtn.on('click', saveAddress);
+
+
+getParams();

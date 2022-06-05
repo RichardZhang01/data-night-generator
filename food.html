@@ -17,33 +17,39 @@
         />
 
         <link rel="stylesheet" href="./assets/css/style.css" />
+        <link rel="stylesheet" href="./assets/css/food.css" />
     </head>
 
     <body>
 
         <div class="grid-y grid-frame">
 
-            <div class="grid-x grid-padding-x grid-padding-y shrink header">
+            <div class="cell shrink header medium-cell-block-container food-header">
 
-                <div class="cell auto food-header">
-                    <h1>Food</h1>
+                <div class="grid-x grid-padding-x grid-padding-y">
+
+                    <div class="cell small-12 medium-auto margin-x">
+                        <h1 >Restaurants</h1>
+                    </div>
+
+                     <div class="cell large-4 medium-6 small-12 grid-x grid-margin-x">
+                        <div class="cell auto">
+                            <button class="hollow alert button expanded" data-open="address-modal">Add Address</button></div>
+                        <div class="cell auto">
+                            <button class="restaurant-btn button hollow warning expanded" data-open="restaurant-modal">Add Restaurant</button>
+                        </div>
+                    </div>
+
                 </div>
-    
-                <div class="cell shrink">
-                    <button class="restaurant-btn button hollow warning expanded" data-open="restaurant-modal">Add Restaurant</button>
-                </div>
-    
             </div>
 
-            <div class="cell auto body">
+            <div class="cell auto body cell-block">
 
                 <div class="grid-x grid-padding-x small-up-1 medium-up-2 large-up-3 restaurant-blocks">
 
                     <!-- Generated cards go here -->
                     
                     <div class="cell">
-
-                        
 
                         <!-- layout -->
                         <div class="card text-center">
@@ -138,13 +144,12 @@
 
             <form>
 
-                <h2 class="text-center" id="form-main-header">Add Restaurant</h2>
+                <h2 class="text-center form-main-header">Add Restaurant</h2>
 
-                <div class="row">
-
+                
                     <div class="small-12 columns">
                         <label>Restaurant Name
-                            <input type="text" placeholder="Restaurant Name" id="restaurantNameR">
+                            <input type="text" placeholder="Restaurant Name" id="restaurantNameR" required>
                         </label>
                     </div>
 
@@ -172,71 +177,87 @@
 
                     <h3 class="text-center form-section-header">Restaurant Address</h3>
                     
-
                     <div class="small-12 columns">
                         <label>
                             Street Number
-                            <input type="number" min="0" id="streetNumR">
+                            <input type="number" min="0" id="streetNumR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             Street Name
-                            <input type="text" placeholder="Street Name" id="streetNameR">
+                            <input type="text" placeholder="Street Name" id="streetNameR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             City
-                            <input type="text" placeholder="City" id="cityR">
+                            <input type="text" placeholder="City" id="cityR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             State/Province
-                            <input type="text" placeholder="State/Province" id="stateProvinceR">
+                            <input type="text" placeholder="State/Province" id="stateProvinceR" required>
                         </label>
                     </div>
 
-                    <h3 class="text-center form-section-header">User Address</h3>
+
+                <div class="button-group align-center">
+                    <a class="secondary button" data-close id="restaurantCloseBtn">Close</a>
+                    <input class="button" type="submit" id="restaurantSubmitBtn" data-close></input>
+                </div>
+
+            </form>
+
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        <div class="reveal" id="address-modal" aria-labelledby="user address modal" data-reveal data-animation-in="fade-in fast" data-animation-out="fade-out fast">
+
+            <form>
+
+                <h2 class="text-center form-main-header">Your Address</h3>
                     
 
                     <div class="small-12 columns">
                         <label>
                             Street Number
-                            <input type="number" min="0" id="UserStreetNumR">
+                            <input type="number" min="0" id="UserStreetNumR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             Street Name
-                            <input type="text" placeholder="Street Name" id="UserStreetNameR">
+                            <input type="text" placeholder="Street Name" id="UserStreetNameR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             City
-                            <input type="text" placeholder="City" id="UserCityR">
+                            <input type="text" placeholder="City" id="UserCityR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             State/Province
-                            <input type="text" placeholder="State/Province" id="UserStateProvinceR">
+                            <input type="text" placeholder="State/Province" id="UserStateProvinceR" required>
                         </label>
                     </div>
 
-                </div>
-
+                
                 <div class="button-group align-center">
-                    <a class="secondary button" data-close id="restaurantCloseBtn">Close</a>
-                    <a class="button" type="submit" data-close id="restaurantSubmitBtn">Submit</a>
+                    <a class="secondary button" data-close id="addressCloseBtn">Close</a>
+                    <input class="button" type="submit" id="addressSubmitBtn" data-close></input>
                 </div>
 
             </form>

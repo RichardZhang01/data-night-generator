@@ -33,7 +33,20 @@ const searchAPI = (genre, sort) => {
         return;
     }
 
-    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}`;
+    if (sort === "top_rated") {
+      console.log("rating");
+      searchTopRated();
+      return;
+  }
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = today.getFullYear();
+
+    today = `${yyyy}-${mm}-${dd}`;
+
+    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}&release_date.lte=${today}`;
 
     fetch(movieUrl)
     .then(function (response) {
@@ -71,6 +84,41 @@ const searchTrending = () => {
   const trendingUrl = `https://api.themoviedb.org/3/trending/movie/week?api_key=${key}`;
 
   fetch(trendingUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+
+      return response.json();
+    })
+    .then(function (data) {
+      
+    //   resultTextEl.textContent = locRes.search.query;
+
+      console.log(data);
+
+      if (!data.results.length) {
+        console.log('No results found!');
+        // resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
+      } else {
+        // resultContentEl.textContent = '';
+        // for (var i = 0; i < locRes.results.length; i++) {
+        //   printResults(locRes.results[i]);
+        // }
+        printResults(data);
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+}
+
+const searchTopRated = () => {
+
+  const topRatedUrl = `https://api.themoviedb.org/3/movie/top_rated?api_key=${key}&language=en-US`;
+
+  fetch(topRatedUrl)
     .then(function (response) {
       if (!response.ok) {
         throw response.json();
