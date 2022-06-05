@@ -53,7 +53,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-main-header {
     border-bottom: 1px solid lightgray;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
 }
 
 .form-section-header {
@@ -110,6 +111,11 @@ li:not([disabled]):hover {
 
 nav {
     padding-top: 14px;
+}
+
+.card-divider {
+    background-color: rgb(56, 56, 56) !important;
+    color: white !important;
 }
 
 @media screen and (max-width: 1300px) {
