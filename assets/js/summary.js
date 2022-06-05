@@ -30,7 +30,7 @@ function chosenMovie() {
                     const posterPath = data.poster_path;
                     const movieID = data.id;
 
-                    const cellMovEl = $('<div class="cellgit">');
+                    const cellMovEl = $('<div class="cell">');
                     const equalizerEl = $('<div data-equalizer-watch="foo">')
                     const cardContainerEl = $('<div class="card">');
                     const generateGridEl = $('<div class="grid-x">');
@@ -101,7 +101,7 @@ const chosenRestaurant = (restaurantIndex) => {
     const priceCard = restaurant.price
     const distanceCard = restaurant.distance;
 
-    const cellEl = $('<div class="cell" data-equalizer-watch="foo">');
+    const cellEl = $('<div class="cell">');
     const equalizerEl = $('<div data-equalizer-watch>')
     const cardContainerEl = $('<div class="card text-center">');
     const generateGridEl = $('<div class="grid-x">');
