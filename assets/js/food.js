@@ -22,12 +22,6 @@ const getParams = () => {
     expense = queryString[3];
     distance = queryString[5];
 
-    console.log(document.location.search)
-    console.log(queryString);
-    console.log(cuisine);
-    console.log(expense);
-    console.log(distance);
-
     printResults(cuisine, expense, distance);
 }
 
@@ -37,18 +31,6 @@ const fetchRestaurants = () => {
     let restaurants = JSON.parse(localStorage.getItem('restaurantLocations')); 
 
     localStorage.removeItem('restaurants');
-
-    // restaurantLocation = $('#streetNumR').val()+" "+$('#streetNameR').val()+','+$('#cityR').val()+','+$('#stateProvinceR').val();
-
-    // let savedRestaurant = {
-    //     streetNum: $('#streetNumR').val(),
-    //     streetName: $('#streetNameR').val(),
-    //     city: $('#cityR').val(),
-    //     stateProv: $('#stateProvinceR').val(),
-    //     cuisine: $('#cuisineR').val(),
-    //     restaurantName: $('#restaurantNameR').val(),
-    //     price: $('#priceRangeR').val(),
-    // }
 
     for (let x in restaurants) {
 
@@ -71,32 +53,24 @@ const fetchRestaurants = () => {
                 return response.json();
             })
             .then(function (data) {  
-                console.log(data)
 
                 let newRestaurant = {
                     name:"",
                     cusine:"",
                     price:"",
+                    address:"",
                     distance:"",
                 }
 
                 newRestaurant.name = restaurants[x].restaurantName;
                 newRestaurant.cusine = restaurants[x].cuisine;
-                newRestaurant.price = restaurants[x].price;         
+                newRestaurant.price = restaurants[x].price;
+                newRestaurant.address = `${restaurants[x].streetNum} ${restaurants[x].streetName}`;      
                 newRestaurant.distance = Math.round(((data.distance[1]*1.60934) + Number.EPSILON) * 100) / 100;
 
-                console.log(newRestaurant);
-
-                console.log("--- restaurant ARR before ---");
-                console.log(restaurantARR);
                 restaurantARR = JSON.parse(localStorage.getItem('restaurants')) || [];
-                // if(localStorage.getItem('restaurants')!==null){
-                //     restaurantARR = JSON.parse(localStorage.getItem('restaurants'));
-                // }
                 restaurantARR.push(newRestaurant);
 
-                console.log("--- restaurant ARR after ---");
-                console.log(restaurantARR);
                 localStorage.setItem('restaurants',JSON.stringify(restaurantARR));
 
                 printResults(cuisine, expense, distance);
@@ -109,17 +83,10 @@ const fetchRestaurants = () => {
 
 //functionality for add restaurant button end
 
-//Printing options to page
-//Place Holder selection for testing purposes until program can navigate to this page and actually filter selections can be carried over
-// let cusineFilter = 'Italian';
-// let priceFilter = '1';
-// let distanceFilter = 5;
-
 const printResults = (cusineFilter, priceFilter, distanceFilter) => {
 
     const restaurantList = JSON.parse(localStorage.getItem('restaurants'));
 
-    console.log(restaurantList);
     restaurantBlocksEL.empty();
 
     for (let x in restaurantList) {
@@ -128,6 +95,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
         const cusineCard = restaurantList[x].cusine;
         const priceCard = restaurantList[x].price
         const distanceCard = restaurantList[x].distance;
+        const addressCard = restaurantList[x].address;
 
         if(cusineCard === cusineFilter && priceCard <= priceFilter && distanceCard <= distanceFilter){
 
@@ -141,6 +109,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
             const cusineEl = $('<p>');
             const priceEl = $('<p>');
             const distanceEl = $('<p>');
+            const addressEl = $('<p>');
             const saveBtnEl = $('<button class="button hollow success selectBtn">');
 
             restaurantNameEl.text(nameCard);
@@ -148,6 +117,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
             //adding 1 to priceCard because potential value ranges from 0 to 3
             priceEl.text('Price: '+('$'.repeat((parseInt(priceCard)+1))));
             distanceEl.text('Distance: '+ distanceCard +' km');
+            addressEl.text('Address: '+ addressCard)
             saveBtnEl.text('Select');
             saveBtnEl.attr('value', x);
 
@@ -155,6 +125,7 @@ const printResults = (cusineFilter, priceFilter, distanceFilter) => {
             infoContainerEl.append(saveBtnEl);
             infoContainerEl.append(cusineEl);
             infoContainerEl.append(priceEl);
+            infoContainerEl.append(addressEl);
             infoContainerEl.append(distanceEl);
             textCellEl.append(nameContainerEl);
             textCellEl.append(infoContainerEl);

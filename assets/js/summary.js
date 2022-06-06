@@ -5,7 +5,6 @@ let storedRestaurant = localStorage.getItem("selectedRestaurant");
 
 function init(){
     let storedMovieId = JSON.parse(localStorage.getItem("selectedMovieId"));
-    console.log(storedMovieId);
     chosenMovieId = storedMovieId;
     chosenMovie(); 
 
@@ -17,9 +16,7 @@ function chosenMovie() {
     fetch(chosenMovieUrl)
         .then(function(response){
             if(response.ok){
-                console.log(response);
                 response.json().then(function(data){
-                    console.log(data);
 
                     movieBlocksEl.empty();
 
@@ -28,7 +25,6 @@ function chosenMovie() {
                     const releaseDate = data.release_date
                     const rating = data.vote_average;
                     const posterPath = data.poster_path;
-                    const movieID = data.id;
 
                     const cellMovEl = $('<div class="cell">');
                     const equalizerEl = $('<div data-equalizer-watch="foo">')
@@ -71,7 +67,6 @@ function chosenMovie() {
                     infoContainerEl.append(genresEl);
 
                     const selectedGenre = data.genres;
-                    console.log(selectedGenre);
 
                     for (let x in selectedGenre){
                         genreSpanEl = $("<span>");
@@ -94,12 +89,11 @@ const chosenRestaurant = (restaurantIndex) => {
 
     const restaurant = storedRestaurantList[restaurantIndex];
 
-    console.log(restaurant);
-
     const nameCard = restaurant.name;
     const cusineCard = restaurant.cusine;
     const priceCard = restaurant.price
     const distanceCard = restaurant.distance;
+    const addressCard = restaurant.address;
 
     const cellEl = $('<div class="cell">');
     const equalizerEl = $('<div data-equalizer-watch>')
@@ -111,17 +105,20 @@ const chosenRestaurant = (restaurantIndex) => {
     const infoContainerEl = $('<div class="card-section">');
     const cusineEl = $('<p>');
     const priceEl = $('<p>');
+    const addressEl = $('<p>');
     const distanceEl = $('<p>');
 
     restaurantNameEl.text(nameCard);
     cusineEl.text('Cuisine: '+cusineCard);
     //adding 1 to priceCard because potential value ranges from 0 to 3
     priceEl.text('Price: '+('$'.repeat((parseInt(priceCard)+1))));
+    addressEl.text('Address: '+ addressCard);
     distanceEl.text('Distance: '+ distanceCard +' km');
 
     nameContainerEl.append(restaurantNameEl);
     infoContainerEl.append(cusineEl);
     infoContainerEl.append(priceEl);
+    infoContainerEl.append(addressEl);
     infoContainerEl.append(distanceEl);
     textCellEl.append(nameContainerEl);
     textCellEl.append(infoContainerEl);
