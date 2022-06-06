@@ -20,42 +20,54 @@
     </head>
 
     <body>
-        
-        <div class="grid-x grid-padding-x grid-padding-y shrink header">
 
-            <div class="cell small-10"></div>
+        <div class="grid-y grid-frame">
 
-            <div class="cell small-2">
-                <button class="restaurant-btn button hollow warning expanded" data-open="restaurant-modal">Add Restaurant</button>
+            <div class="cell shrink header medium-cell-block-container">
+
+                <div class="grid-x grid-margin-x grid-padding-y">
+
+                    <div class="cell auto">
+                    </div>
+
+                     <div class="cell large-4 medium-6 small-12 grid-x grid-margin-x">
+                        <div class="cell auto">
+                            <button class="hollow alert button expanded" data-open="address-modal">Add Address</button></div>
+                        <div class="cell auto">
+                            <button class="restaurant-btn button hollow warning expanded" data-open="restaurant-modal">Add Restaurant</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
+            <div class="cell medium-auto medium-cell-block-container">
+
+                <div class="grid-y" style="height: 25vh">
+                </div> 
+
+                <div class="grid-x grid-padding-x grid-container">
+
+
+                    <div class="cell auto cell-block-y landing text-center">
+                        
+                        <h1 class="title">Date Night Generator</h1>
+                        <h2 class="description h4">Click the button below to plan your date-night!</h2>                
+                        <button class="generate-btn button" data-open="input-modal">Start</button>
+            
+                    </div>
+
+              </div>
+
+            </div>
+            
         </div>
-
-        <div class="grid-x align-center-middle text-center" style="height: 100vh;">
-
-            <div class="landing grid-y align-center-middle text-center radius">
-
-                <div class="cell">
-                    <h1 class="title">Date Night Generator</h1>
-                </div> 
-
-                <div class="cell">
-                    <h2 class="description h4">Click the start button below to enter information about your date-night!</h2>
-                </div> 
-
-                <div class="cell">  
-                    <button class="generate-btn button" data-open="input-modal">Start</button>
-                </div> 
-
-            </div> 
-
-        </div>
-
+        
         <div class="reveal" id="input-modal" aria-labelledby="user-input modal" data-reveal data-animation-in="fade-in fast" data-animation-out="fade-out fast">
 
             <form>
 
-                <h2 class="text-center" id="form-main-header">Date Night Form</h2>
+                <h2 class="text-center form-main-header">Date Night Form</h2>
 
                 <div class="row">
 
@@ -91,20 +103,16 @@
                     <div class="small-12 columns">
                         <label>Sort
                             <select id="sort">
-                                <option value=" ">No Sort</option>
-                                <option value="popularity.desc">Popularity Descending</option>
-                                <option value="popularity.asc">Popularity Ascending</option>
-                                <option value="release_date.desc">Release Date Descending</option>
-                                <option value="release_date.asc">Release Date Ascending</option>
-                                <option value="revenue.desc">Revenue Decending</option>
-                                <option value="revenue.asc">Revenue Ascending</option>
-                                <option value="vote_averase.desc">Average Vote Descending</option>
-                                <option value="vote_averase.asc">Average Vote Ascending</option>
+                                <option value=" ">Trending</option>
+                                <option value="popularity.desc">Popularity</option>
+                                <option value="release_date.desc">Release Date</option>
+                                <option value="revenue.desc">Revenue</option>
+                                <option value="top_rated">Rating (all movies)</option>
                             </select>
                         </label>
                     </div>
 
-                  <h3 class="text-center form-section-header">Food</h3>
+                  <h3 class="text-center form-section-header">Restaurant</h3>
 
                     <div class="small-12 columns">
                         <label>Cuisine
@@ -139,7 +147,7 @@
 
                 <div class="button-group align-center">
                     <a class="secondary button" data-close id="closeBtn">Close</a>
-                    <a class="button" type="submit" id="submitBtn">Submit</a>
+                    <a class="button" type="submit" id="submitBtn" data-close>Submit</a>
                 </div>
 
             </form>
@@ -154,13 +162,12 @@
 
             <form>
 
-                <h2 class="text-center" id="form-main-header">Add Restaurant</h2>
+                <h2 class="text-center form-main-header">Add Restaurant</h2>
 
-                <div class="row">
-
+                
                     <div class="small-12 columns">
                         <label>Restaurant Name
-                            <input type="text" placeholder="Restaurant Name" id="restaurantNameR">
+                            <input type="text" placeholder="Restaurant Name" id="restaurantNameR" required>
                         </label>
                     </div>
 
@@ -188,71 +195,87 @@
 
                     <h3 class="text-center form-section-header">Restaurant Address</h3>
                     
-
                     <div class="small-12 columns">
                         <label>
                             Street Number
-                            <input type="number" min="0" id="streetNumR">
+                            <input type="number" min="0" id="streetNumR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             Street Name
-                            <input type="text" placeholder="Street Name" id="streetNameR">
+                            <input type="text" placeholder="Street Name" id="streetNameR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             City
-                            <input type="text" placeholder="City" id="cityR">
+                            <input type="text" placeholder="City" id="cityR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             State/Province
-                            <input type="text" placeholder="State/Province" id="stateProvinceR">
+                            <input type="text" placeholder="State/Province" id="stateProvinceR" required>
                         </label>
                     </div>
 
-                    <h3 class="text-center form-section-header">User Address</h3>
+
+                <div class="button-group align-center">
+                    <a class="secondary button" data-close id="restaurantCloseBtn">Close</a>
+                    <input class="button" type="submit" id="restaurantSubmitBtn" data-close></input>
+                </div>
+
+            </form>
+
+            <button class="close-button" data-close aria-label="Close reveal" type="button">
+                <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        <div class="reveal" id="address-modal" aria-labelledby="user address modal" data-reveal data-animation-in="fade-in fast" data-animation-out="fade-out fast">
+
+            <form>
+
+                <h2 class="text-center form-main-header">Your Address</h3>
                     
 
                     <div class="small-12 columns">
                         <label>
                             Street Number
-                            <input type="number" min="0" id="UserStreetNumR">
+                            <input type="number" min="0" id="UserStreetNumR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             Street Name
-                            <input type="text" placeholder="Street Name" id="UserStreetNameR">
+                            <input type="text" placeholder="Street Name" id="UserStreetNameR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             City
-                            <input type="text" placeholder="City" id="UserCityR">
+                            <input type="text" placeholder="City" id="UserCityR" required>
                         </label>
                     </div>
 
                     <div class="small-12 columns">
                         <label>
                             State/Province
-                            <input type="text" placeholder="State/Province" id="UserStateProvinceR">
+                            <input type="text" placeholder="State/Province" id="UserStateProvinceR" required>
                         </label>
                     </div>
 
-                </div>
-
+                
                 <div class="button-group align-center">
-                    <a class="secondary button" data-close id="restaurantCloseBtn">Close</a>
-                    <a class="button" type="submit" data-close id="restaurantSubmitBtn">Submit</a>
+                    <a class="secondary button" data-close id="addressCloseBtn">Close</a>
+                    <input class="button" type="submit" id="addressSubmitBtn" data-close></input>
                 </div>
 
             </form>

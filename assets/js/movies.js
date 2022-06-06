@@ -1,15 +1,21 @@
 const key = "91d53f14a017df935d07d6021001286c";
+const paginationDiv = $("#pagination");
 
 let cuisine;
 let expense;
 let distance;
+let genre;
+let sort;
+
+let counter = 1;
+let maxPages = 10;
 
 function getParams(){
 
     const queryString = document.location.search.split(/[=&]+/);
 
-    const genre = queryString[1];
-    const sort = queryString[3];
+    genre = queryString[1];
+    sort = queryString[3];
     cuisine = queryString[5];
     expense = queryString[7];
     distance = queryString[9];
@@ -33,7 +39,20 @@ const searchAPI = (genre, sort) => {
         return;
     }
 
-    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=1&with_genres=${genre}&sort_by=${sort}`;
+    if (sort === "top_rated") {
+      console.log("rating");
+      searchTopRated();
+      return;
+  }
+
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+    let yyyy = today.getFullYear();
+
+    today = `${yyyy}-${mm}-${dd}`;
+
+    const movieUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${key}&language=en-US&include_adult=false&include_video=false&page=${counter}&with_genres=${genre}&sort_by=${sort}&release_date.lte=${today}`;
 
     fetch(movieUrl)
     .then(function (response) {
@@ -68,9 +87,44 @@ const searchAPI = (genre, sort) => {
 
 const searchTrending = () => {
 
-  const trendingUrl = `https://api.themoviedb.org/3/trending/movie/week?api_key=${key}`;
+  const trendingUrl = `https://api.themoviedb.org/3/trending/movie/week?page=${counter}&api_key=${key}`;
 
   fetch(trendingUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw response.json();
+      }
+
+      return response.json();
+    })
+    .then(function (data) {
+      
+    //   resultTextEl.textContent = locRes.search.query;
+
+      console.log(data);
+
+      if (!data.results.length) {
+        console.log('No results found!');
+        // resultContentEl.innerHTML = '<h3>No results found, search again!</h3>';
+      } else {
+        // resultContentEl.textContent = '';
+        // for (var i = 0; i < locRes.results.length; i++) {
+        //   printResults(locRes.results[i]);
+        // }
+        printResults(data);
+      }
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
+
+}
+
+const searchTopRated = () => {
+
+  const topRatedUrl = `https://api.themoviedb.org/3/movie/top_rated?page=${counter}&api_key=${key}&language=en-US`;
+
+  fetch(topRatedUrl)
     .then(function (response) {
       if (!response.ok) {
         throw response.json();
@@ -105,6 +159,8 @@ const printResults = (data) => {
 
     const movieBlocksEl = $(".movie-blocks");
     const movieList = data.results;
+    // maxPages = data.total_pages;
+    // console.log(maxPages);
 
     console.log(movieList);
     movieBlocksEl.empty();
@@ -214,11 +270,9 @@ const printResults = (data) => {
 
 }
 
-getParams();
+
 
 let movieBlocks = $(".movie-blocks");
-
-console.log(movieBlocks);
 
 // When the select button is pressed, it links to the food.html and the selected movie ID is added to local storage. 
 
@@ -226,5 +280,57 @@ movieBlocks.on("click",".selectBtn",function(){
   selectedMovieId = $(this).attr("value");
   console.log(selectedMovieId);
   localStorage.setItem("selectedMovieId",JSON.stringify(selectedMovieId));  
-  window.location.href = "./food.html?cuisine=" + cuisine + "&expense=" + expense + "&distance=" + distance;
+  location.assign("./food.html?cuisine=" + cuisine + "&expense=" + expense + "&distance=" + distance);
 });
+
+const changePage = (event) => {
+
+  const btnClicked = $(event.target);
+
+  if (btnClicked.hasClass("pagination-previous")) {
+
+    if (counter === 1) {
+      console.log("counter = 1");
+      return;
+    }
+
+    counter--;
+
+    if (counter === 1) {
+      btnClicked.attr("disabled", "");
+    }
+
+    if (counter < maxPages) {
+      $(".pagination-next").removeAttr("disabled");
+    }
+
+    searchAPI(genre, sort);
+
+  }
+
+  if (btnClicked.hasClass("pagination-next")) {
+
+    if (counter === maxPages) {
+      console.log("counter = max");
+      return;
+    }
+
+    counter++;
+
+    if (counter === maxPages) {
+      btnClicked.attr("disabled", "");
+    }
+
+    if (counter > 1) {
+      $(".pagination-previous").removeAttr("disabled");
+    }
+
+    searchAPI(genre, sort);
+
+  }
+
+}
+
+paginationDiv.on("click", changePage);
+
+getParams();

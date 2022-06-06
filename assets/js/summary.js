@@ -30,6 +30,8 @@ function chosenMovie() {
                     const posterPath = data.poster_path;
                     const movieID = data.id;
 
+                    const cellMovEl = $('<div class="cell">');
+                    const equalizerEl = $('<div data-equalizer-watch="foo">')
                     const cardContainerEl = $('<div class="card">');
                     const generateGridEl = $('<div class="grid-x">');
                     const posterCellEl = $('<div class="cell large-2 medium-4 small-0">');
@@ -60,7 +62,9 @@ function chosenMovie() {
                     generateGridEl.append(posterCellEl);
                     generateGridEl.append(textCellEl);
                     cardContainerEl.append(generateGridEl);
-                    movieBlocksEl.append(cardContainerEl);
+                    equalizerEl.append(cardContainerEl)
+                    cellMovEl.append(equalizerEl);
+                    movieBlocksEl.append(cellMovEl);
                     
                     const genresEl = $("<p>");
                     genresEl.text("Genres: ");
@@ -97,6 +101,8 @@ const chosenRestaurant = (restaurantIndex) => {
     const priceCard = restaurant.price
     const distanceCard = restaurant.distance;
 
+    const cellEl = $('<div class="cell">');
+    const equalizerEl = $('<div data-equalizer-watch>')
     const cardContainerEl = $('<div class="card text-center">');
     const generateGridEl = $('<div class="grid-x">');
     const textCellEl = $('<div class="cell">');
@@ -121,7 +127,9 @@ const chosenRestaurant = (restaurantIndex) => {
     textCellEl.append(infoContainerEl);
     generateGridEl.append(textCellEl);
     cardContainerEl.append(generateGridEl);
-    movieBlocksEl.append(cardContainerEl);
+    equalizerEl.append(cardContainerEl);
+    cellEl.append(equalizerEl);
+    movieBlocksEl.append(cellEl);
 
 }
 

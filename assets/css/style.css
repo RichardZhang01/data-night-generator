@@ -1,7 +1,11 @@
 body {
     font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
     /* background: linear-gradient( 109.6deg,  rgba(218,185,252,1) 11.2%, rgba(125,89,252,1) 91.1% ); */
-    background: linear-gradient(to right, #ad5389, #3c1053);
+    /* background: linear-gradient(to right, #ad5389, #3c1053); */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/night-sky.jpg"); /* The image used */
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover; 
 }
 
 .landing { 
@@ -11,12 +15,6 @@ body {
     padding: 15px;
     width: 50%;
 }
-
-/* .info-container {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-} */
 
 .title {
     font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
@@ -30,8 +28,11 @@ body {
 
 .generate-btn {
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19) !important;
-    border-radius: 5px !important;
     margin-top: 20px;
+}
+
+.button {
+    border-radius: 10px !important;
 }
 
 form {
@@ -46,17 +47,18 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', 'Noto Sans', Arial, sans-serif !important;
 }
 
-#form-main-header {
-    border-bottom: 2px solid lightgray;
-    padding-bottom: 5px;
+.reveal {
+    border-radius: 15px !important;
+}
+
+.form-main-header {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
 }
 
 .form-section-header {
     margin: 20px 0 10px 0 !important;
-}
-
-input, select {
-    border-radius: 5px !important;
 }
 
 .restaurant-title {
@@ -64,33 +66,56 @@ input, select {
     width: 100%;
 }
 
-/* .movie-title {
-    font-size: 1.5rem;
+.slider-handle {
+    border-radius: 20px !important;
 }
 
-.card-section {
-    font-size: 1.2rem;
-} */
-
-/* .overview {
-    max-height: 80px;
-    overflow: scroll;
-} */
-
-.movies-header {
+.movies-header, .food-header {
     color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
     z-index: 1;
 }
 
-.food-header {
+.footer {
     color: white;
+    box-shadow: 0px -5px 21px 6px rgba(0, 0, 0, 0.2), 0px -5px 21px 6px rgba(0, 0, 0, 0.19) !important;
+    z-index: 1;
 }
 
 .card {
     border-radius: 10px !important;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 
+}
+
+input, select {
+    border-radius: 50px !important;
+}
+
+li {
+    color:white !important;
+    padding: 10px;
+    transition: color 0.5s ease, background 0.5s ease;
+}
+
+li:not([disabled]):hover {
+    color: black !important;
+    background: white;
+    cursor: pointer;
+}
+
+[disabled] {
+    color: lightgray !important;
+    cursor: not-allowed;
+}
+
+nav {
+    padding-top: 14px;
+}
+
+.card-divider {
+    background-color: rgb(56, 56, 56) !important;
+    color: white !important;
 }
 
 @media screen and (max-width: 1300px) {
@@ -130,6 +155,10 @@ input, select {
     
     .overview {
         max-height: 200px;
+    }
+
+    .food-header {
+        text-align: center;
     }
 
 }
