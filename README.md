@@ -9,4 +9,4 @@ This website can be accessed at https://richardzhang01.github.io/date-night-gene
 
 Below is a screenshot of the website. 
 
-![alt text](assets/images/screenshot.png)
+![Landing Page Screenshot](assets/images/screenshot-1.png)
