@@ -21,7 +21,7 @@ const retrieveData = () => {
 //functionality for 'add restaurant button start
 let key = 'vmOdGP0ypNDcYTMyoNuk0n9x2sEXniq5';
 let userLocation = '';
-let retaurantLocation = '';
+let restaurantLocation = '';
 
 let newRetaurantSubmit = $('newRetaurantSubmit') ;
 

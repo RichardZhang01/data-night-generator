@@ -22,7 +22,7 @@ const getParams = () => {
     expense = queryString[3];
     distance = queryString[5];
 
-    printResults(cuisine, expense, distance);
+    fetchRestaurants();
 }
 
 const fetchRestaurants = () => {
